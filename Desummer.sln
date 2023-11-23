@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desummer", "Desummer\Desummer.csproj", "{FE010A31-8B0D-4B5E-92D3-79F19B133E25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE010A31-8B0D-4B5E-92D3-79F19B133E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE010A31-8B0D-4B5E-92D3-79F19B133E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE010A31-8B0D-4B5E-92D3-79F19B133E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE010A31-8B0D-4B5E-92D3-79F19B133E25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56129801-50D8-4991-8D74-206022A1C683}
+	EndGlobalSection
+EndGlobal
