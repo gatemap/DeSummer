@@ -388,7 +388,6 @@ FodyWeavers.xsd
 
 # Local History for Visual Studio Code
 .history/
-.vs/
 Desummer/obj/Debug/
 
 # Windows Installer files from build outputs
