@@ -11,4 +11,9 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Update="dataResource.ko-KR.resx">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
 </Project>
