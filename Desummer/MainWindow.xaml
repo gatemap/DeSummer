@@ -21,9 +21,9 @@
                         <ColumnDefinition Width="190*"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="checkBoxGrid">
-                        <CheckBox Content="A" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top"/>
-                        <CheckBox Content="B" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top"/>
-                        <CheckBox Content="C" HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top"/>
+                        <CheckBox Content="A 보온로 온도" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top"/>
+                        <CheckBox Content="B 보온로 온도" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top"/>
+                        <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top"/>
                     </Grid>
                     <Grid x:Name="graphGrid" Grid.Column="1">
                         <ScottPlot:WpfPlot x:Name="temperatruePlot"/>
@@ -33,7 +33,16 @@
                     </Grid>
                 </Grid>
                 <Grid x:Name="dataGrid" Grid.Row="1">
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,31,0,-32"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Width="120">
+                        <ComboBoxItem Content="--전체--"/>
+                        <ComboBoxItem Content="21년 1월"/>
+                        <ComboBoxItem Content="21년 2월"/>
+                        <ComboBoxItem Content="21년 3월"/>
+                        <ComboBoxItem Content="21년 4월"/>
+                    </ComboBox>
+                    <Button Content="보기" HorizontalAlignment="Left" Margin="175,8,0,0" VerticalAlignment="Top" Padding="5,3,5,5"/>
+                    <Button Content="그래프 그리기" HorizontalAlignment="Left" Margin="235,8,0,0" VerticalAlignment="Top" Padding="5,3,5,5"/>
+                    <DataGrid Margin="0,47,0,-48" AutoGenerateColumns="False" CanUserAddRows="False"/>
                 </Grid>
             </Grid>
         </ScrollViewer>
