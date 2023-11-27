@@ -80,9 +80,9 @@ namespace Desummer {
         ///2021-01-08 1:15,720,730,700
         ///2021-01-08 1:20,720,7 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string 보온로___온도__2021_01_08_00_00_00___2021_04_12_23_59_59 {
+        internal static string termalFurnace {
             get {
-                return ResourceManager.GetString("보온로___온도__2021_01_08_00_00_00___2021_04_12_23_59_59", resourceCulture);
+                return ResourceManager.GetString("termalFurnace", resourceCulture);
             }
         }
     }
