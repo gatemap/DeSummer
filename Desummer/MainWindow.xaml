@@ -21,12 +21,12 @@
                         <ColumnDefinition Width="190*"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="checkBoxGrid">
-                        <CheckBox Content="A 보온로 온도" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top"/>
-                        <CheckBox Content="B 보온로 온도" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top"/>
-                        <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top"/>
+                        <CheckBox Content="A 보온로 온도" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowAthermalFurnace" Unchecked="HideAthermalFurnace"/>
+                        <CheckBox Content="B 보온로 온도" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowBthermalFurnace" Unchecked="HideBthermalFurnace"/>
+                        <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowCthermalFurnace" Unchecked="HideCthermalFurnace"/>
                     </Grid>
                     <Grid x:Name="graphGrid" Grid.Column="1">
-                        <ScottPlot:WpfPlot x:Name="temperatruePlot"/>
+                        <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseLeftButtonDown="MouseLeftDown"/>
                     </Grid>
                     <Grid x:Name="temperatureGrid" Grid.Column="2">
 
