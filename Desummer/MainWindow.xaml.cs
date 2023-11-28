@@ -1,5 +1,6 @@
 ﻿using Desummer.Scripts;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Desummer
 {
@@ -9,6 +10,7 @@ namespace Desummer
     public partial class MainWindow : Window
     {
         PlotControl plotControl;
+        DataGridControl ShowOnDataGrid;
         ProcessData temperatrueProcessData;
 
         public MainWindow()
@@ -17,6 +19,10 @@ namespace Desummer
 
             temperatrueProcessData = new ProcessData();
             plotControl = new PlotControl(temperaturePlot, temperatrueProcessData.TemperatureTotalData());
+
+            //실행했을때 데이터그리드가 비어있지 않게 전체 데이터에 대한 요약 출력
+            ShowOnDataGrid = new DataGridControl();
+            ShowOnDataGrid.MinMaxAvg(DataGrid_TempData, temperatrueProcessData.TemperatureTotalData());
         }
 
         private void MouseLeftDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -74,7 +80,7 @@ namespace Desummer
             List<TemperatureData> Select_Month_Week = Month.SplitDataMonthly(SelectedMonth, SelectedWeek);
 
             //최대, 최소, 평균 출력하기
-            DataGridControl ShowOnDataGrid = new DataGridControl();
+            ShowOnDataGrid = new DataGridControl();
             ShowOnDataGrid.MinMaxAvg(DataGrid_TempData, Select_Month_Week);
         }
     }
