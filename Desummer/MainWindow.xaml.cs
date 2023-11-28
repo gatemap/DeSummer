@@ -18,6 +18,7 @@ namespace Desummer
             InitializeComponent();
 
             temperatrueProcessData = new ProcessData();
+            donutControl = new DonutControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData());
             plotControl = new PlotControl(temperaturePlot, temperatrueProcessData.TemperatureTotalData());
 
             //실행했을때 데이터그리드가 비어있지 않게 전체 데이터에 대한 요약 출력
