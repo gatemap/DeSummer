@@ -71,7 +71,7 @@ namespace Desummer
 
         private void OnMouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (plotControl is null || !plotControl.pauseGraph) return;
+            if (plotControl is null) return;
 
             plotControl.CrosshairVisible(false);
         }
@@ -80,7 +80,7 @@ namespace Desummer
         {
             if (plotControl is null || !plotControl.pauseGraph) return;
 
-            plotControl.ShowCrosshairData(e);
+            plotControl.ShowCrosshairData();
         }
     }
 }

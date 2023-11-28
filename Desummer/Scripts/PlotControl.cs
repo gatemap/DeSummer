@@ -176,6 +176,8 @@ namespace Desummer.Scripts
             bthermalFurnace.IsVisible = bPlotVisible;
             cthermalFurnace.IsVisible = cPlotVisible;
 
+            crosshair = wpfPlot.Plot.AddCrosshair(0, 0);
+
             // 렌더한다
             wpfPlot.Plot.Render();
         }
@@ -248,14 +250,13 @@ namespace Desummer.Scripts
         /// crosshair 데이터 x,y축 값을 마우스 움직임에 따라 계속 갱신해주는 함수. 실제 갱신은 MainWindow에서 하고 있음
         /// </summary>
         /// <param name="e"></param>
-        public void ShowCrosshairData(System.Windows.Input.MouseEventArgs e)
+        public void ShowCrosshairData()
         {
-            int pixelX = (int)e.MouseDevice.GetPosition(wpfPlot).X;
-            int pixelY = (int)e.MouseDevice.GetPosition(wpfPlot).Y;
-
             (double coordinateX, double coordinateY) = wpfPlot.GetMouseCoordinates();
 
             crosshair.X = coordinateX; crosshair.Y = coordinateY;
+            crosshair.VerticalLine.PositionFormatter = pos => DateTime.FromOADate(pos).ToString("MM-dd HH:mm");
+
             wpfPlot.Refresh();
         }
     }
