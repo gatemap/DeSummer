@@ -1,4 +1,6 @@
 ﻿using Desummer.Scripts;
+using ScottPlot.Plottable;
+using ScottPlot;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -66,6 +68,7 @@ namespace Desummer
         {
             plotControl.ThermalFurnaceVisible(3, false);
         }
+
         private void Button_ShowData_Click(object sender, RoutedEventArgs e)
         {
             //선택된 month 체크
@@ -83,6 +86,27 @@ namespace Desummer
             //최대, 최소, 평균 출력하기
             ShowOnDataGrid = new DataGridControl();
             ShowOnDataGrid.MinMaxAvg(DataGrid_TempData, Select_Month_Week);
+        }
+
+        private void OnMouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (plotControl is null || !plotControl.pauseGraph) return;
+
+            plotControl.CrosshairVisible(true);
+        }
+
+        private void OnMouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (plotControl is null) return;
+
+            plotControl.CrosshairVisible(false);
+        }
+
+        private void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (plotControl is null || !plotControl.pauseGraph) return;
+
+            plotControl.ShowCrosshairData();
         }
     }
 }

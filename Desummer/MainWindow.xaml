@@ -26,7 +26,7 @@
                         <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowCthermalFurnace" Unchecked="HideCthermalFurnace"/>
                     </Grid>
                     <Grid x:Name="graphGrid" Grid.Column="1">
-                        <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseLeftButtonDown="MouseLeftDown"/>
+                        <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseLeftButtonDown="MouseLeftDown" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove"/>
                     </Grid>
                     <Grid x:Name="temperatureGrid" Grid.Column="2">
                         <ScottPlot:WpfPlot x:Name="temperatureDonut1" Height="105" Width="65" Margin="60,0,60,169"/>
