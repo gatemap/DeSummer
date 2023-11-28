@@ -4,54 +4,11 @@ namespace Desummer.Scripts
     class ProcessData
     {
         string data = string.Empty;
-        string csvFilePath = @"pack://application,,,/Resources";
-
-        List<TemperatureData> JanData = new List<TemperatureData>();
-        List<TemperatureData> FebData = new List<TemperatureData>();
-        List<TemperatureData> MarData = new List<TemperatureData>();
-        List<TemperatureData> AprData = new List<TemperatureData>();
         List<TemperatureData> Week_Data = new List<TemperatureData>();
         public ProcessData()
         {
 
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>제한된 갯수의 데이터 리스트를 반환한다</returns>
-        public List<TemperatureData> TemperatureLimitData()
-        {
-            data = dataResource.termalFurnace;
-            List<TemperatureData> dataList = new List<TemperatureData>();
-
-            bool firstLine = true;
-
-            foreach(var row in data.Split('\n'))
-            {
-                if(firstLine)
-                {
-                    firstLine = false;
-                    continue;
-                }
-
-                if (string.IsNullOrEmpty(row))
-                    break;
-
-                var columns = row.Split(',');
-                dataList.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
-
-                if (dataList.Count > 100)
-                    break;
-            }
-
-            return dataList;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns>모든 데이터를 반환</returns>
         public List<TemperatureData> TemperatureTotalData()
         {
@@ -77,15 +34,6 @@ namespace Desummer.Scripts
 
                 var columns = row.Split(',');
                 dataList.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
-
-                if (columns[0].Contains("2021-01"))
-                    JanData.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
-                else if(columns[0].Contains("2021-02"))
-                    FebData.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
-                else if (columns[0].Contains("2021-03"))
-                    MarData.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
-                else if (columns[0].Contains("2021-04"))
-                    AprData.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
             }
 
             return dataList;
@@ -123,8 +71,11 @@ namespace Desummer.Scripts
                     case "21년 3월":
                         Selected_month = 3;
                         break;
-                    default:
+                    case "21년 4월":
                         Selected_month = 4;
+                        break;
+                    default:
+                        Selected_month = date.Month;
                         break;
                 }
                 
@@ -140,8 +91,11 @@ namespace Desummer.Scripts
                     case "3주차":
                         Selected_week = 21;
                         break;
-                    default:
+                    case "4주차":
                         Selected_week = 31;
+                        break;
+                    default:
+                        Selected_week = date.Day;
                         break;
                 }
                 
