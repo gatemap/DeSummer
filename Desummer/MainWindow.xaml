@@ -33,16 +33,31 @@
                     </Grid>
                 </Grid>
                 <Grid x:Name="dataGrid" Grid.Row="1">
-                    <ComboBox HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Width="120">
+                    <ComboBox x:Name="ComboBox_SelectMonth" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
                         <ComboBoxItem Content="--전체--"/>
                         <ComboBoxItem Content="21년 1월"/>
                         <ComboBoxItem Content="21년 2월"/>
                         <ComboBoxItem Content="21년 3월"/>
                         <ComboBoxItem Content="21년 4월"/>
                     </ComboBox>
-                    <Button Content="보기" HorizontalAlignment="Left" Margin="175,8,0,0" VerticalAlignment="Top" Padding="5,3,5,5"/>
-                    <Button Content="그래프 그리기" HorizontalAlignment="Left" Margin="235,8,0,0" VerticalAlignment="Top" Padding="5,3,5,5"/>
-                    <DataGrid Margin="0,47,0,-48" AutoGenerateColumns="False" CanUserAddRows="False"/>
+                    <Button x:Name="Button_ShowData" Content="보기" HorizontalAlignment="Left" Margin="307,9,0,0" VerticalAlignment="Top" Padding="5,3,5,5" Click="Button_ShowData_Click"/>
+                    <Button Content="그래프 그리기" HorizontalAlignment="Left" Margin="360,9,0,0" VerticalAlignment="Top" Padding="5,3,5,5"/>
+                    <DataGrid x:Name="DataGrid_TempData" Margin="0,47,0,0" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="보온로" Binding="{Binding Path=Way}" Width="130"/>
+                            <DataGridTextColumn Header="최솟값" Binding="{Binding Path=MinValue}" Width="130"/>
+                            <DataGridTextColumn Header="최댓값" Binding="{Binding Path=MaxValue}" Width="130"/>
+                            <DataGridTextColumn Header="평균" Binding="{Binding Path=AverageValue}" Width="130"/>
+                            <DataGridTextColumn Header="정상 가동률(%)" Binding="{Binding Path=normal_rate}" Width="130"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <ComboBox x:Name="ComboBox_SelectWeek" HorizontalAlignment="Left" Margin="169,10,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+                        <ComboBoxItem Content="--전체--"/>
+                        <ComboBoxItem Content="1주차"/>
+                        <ComboBoxItem Content="2주차"/>
+                        <ComboBoxItem Content="3주차"/>
+                        <ComboBoxItem Content="4주차"/>
+                    </ComboBox>
                 </Grid>
             </Grid>
         </ScrollViewer>
