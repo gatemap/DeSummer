@@ -1,4 +1,6 @@
 ﻿using Desummer.Scripts;
+using ScottPlot.Plottable;
+using ScottPlot;
 using System.Windows;
 
 namespace Desummer
@@ -58,6 +60,27 @@ namespace Desummer
         private void HideCthermalFurnace(object sender, RoutedEventArgs e)
         {
             plotControl.ThermalFurnaceVisible(3, false);
+        }
+
+        private void OnMouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (plotControl is null || !plotControl.pauseGraph) return;
+
+            plotControl.CrosshairVisible(true);
+        }
+
+        private void OnMouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (plotControl is null || !plotControl.pauseGraph) return;
+
+            plotControl.CrosshairVisible(false);
+        }
+
+        private void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (plotControl is null || !plotControl.pauseGraph) return;
+
+            plotControl.ShowCrosshairData(e);
         }
     }
 }
