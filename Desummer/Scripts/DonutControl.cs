@@ -17,6 +17,7 @@ namespace Desummer.Scripts
         private int index = 0;
         private Color color1;
         private Color color2;
+
         public DonutControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas)
         {
             this.temperatureDonut1 = temperatureDonut1;

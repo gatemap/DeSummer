@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Desummer"
         xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="Desummer" Height="600" Width="800">
     <Grid>
-        <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="137*"/>
@@ -16,22 +16,22 @@
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="99*"/>
-                        <ColumnDefinition Width="494*"/>
-                        <ColumnDefinition Width="190*"/>
+                        <ColumnDefinition Width="130*"/>
+                        <ColumnDefinition Width="490*"/>
+                        <ColumnDefinition Width="170*"/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="checkBoxGrid">
-                        <CheckBox Content="A 보온로 온도" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowAthermalFurnace" Unchecked="HideAthermalFurnace"/>
-                        <CheckBox Content="B 보온로 온도" HorizontalAlignment="Center" Margin="0,72,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowBthermalFurnace" Unchecked="HideBthermalFurnace"/>
-                        <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowCthermalFurnace" Unchecked="HideCthermalFurnace"/>
+                        <CheckBox Content="A 보온로 온도" HorizontalAlignment="Center" Margin="5,42,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowAthermalFurnace" Unchecked="HideAthermalFurnace"/>
+                        <CheckBox Content="B 보온로 온도" HorizontalAlignment="Center" Margin="5,72,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowBthermalFurnace" Unchecked="HideBthermalFurnace"/>
+                        <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="5,102,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowCthermalFurnace" Unchecked="HideCthermalFurnace"/>
                     </Grid>
                     <Grid x:Name="graphGrid" Grid.Column="1">
                         <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseLeftButtonDown="MouseLeftDown" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove"/>
-                    </Grid>
+                </Grid>
                     <Grid x:Name="temperatureGrid" Grid.Column="2">
-                        <ScottPlot:WpfPlot x:Name="temperatureDonut1" Height="105" Width="65" Margin="60,0,60,169"/>
-                        <ScottPlot:WpfPlot x:Name="temperatureDonut2" Height="105" Width="65" Margin="60,77,60,77"/>
-                        <ScottPlot:WpfPlot x:Name="temperatureDonut3" Height="105" Width="65" Margin="60,169,60,0"/>
+                        <ScottPlot:WpfPlot x:Name="temperatureDonut1" Height="105" Width="65" Margin="40,0,40,169"/>
+                        <ScottPlot:WpfPlot x:Name="temperatureDonut2" Height="105" Width="65" Margin="40,80,40,80"/>
+                        <ScottPlot:WpfPlot x:Name="temperatureDonut3" Height="105" Width="65" Margin="40,169,40,0"/>
                     </Grid>
                 </Grid>
                 <Grid x:Name="dataGrid" Grid.Row="1">
@@ -43,7 +43,6 @@
                         <ComboBoxItem Content="21년 4월"/>
                     </ComboBox>
                     <Button x:Name="Button_ShowData" Content="보기" HorizontalAlignment="Left" Margin="307,9,0,0" VerticalAlignment="Top" Padding="5,3,5,5" Click="Button_ShowData_Click"/>
-                    <Button Content="그래프 그리기" HorizontalAlignment="Left" Margin="360,9,0,0" VerticalAlignment="Top" Padding="5,3,5,5"/>
                     <DataGrid x:Name="DataGrid_TempData" Margin="0,47,0,0" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="보온로" Binding="{Binding Path=Way}" Width="130"/>
@@ -62,6 +61,5 @@
                     </ComboBox>
                 </Grid>
             </Grid>
-        </ScrollViewer>
     </Grid>
 </Window>

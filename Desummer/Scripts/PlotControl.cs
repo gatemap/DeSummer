@@ -165,7 +165,7 @@ namespace Desummer.Scripts
             bthermalFurnace = wpfPlot.Plot.AddSignal(bTempCopy, sampleRate: dayRate, label: "B로 온도");
             cthermalFurnace = wpfPlot.Plot.AddSignal(cTempCopy, sampleRate: dayRate, label: "C로 온도");
             athermalFurnace.OffsetX = bthermalFurnace.OffsetX = cthermalFurnace.OffsetX = dataFirstDay.ToOADate();
-            wpfPlot.Plot.XAxis.TickLabelFormat("MM-dd HH:mm", dateTimeFormat: true);
+            wpfPlot.Plot.XAxis.TickLabelFormat("MM-dd\nHH:mm", dateTimeFormat: true);
             wpfPlot.Plot.XAxis.ManualTickSpacing(5, ScottPlot.Ticks.DateTimeUnit.Minute);
             SetYAxisMax();
 

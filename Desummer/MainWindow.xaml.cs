@@ -14,6 +14,7 @@ namespace Desummer
         PlotControl plotControl;
         DataGridControl ShowOnDataGrid;
         ProcessData temperatrueProcessData;
+        DonutControl donutControl;
 
         public MainWindow()
         {
@@ -73,11 +74,11 @@ namespace Desummer
         {
             //선택된 month 체크
             ComboBoxItem SelectMonth = (ComboBoxItem)ComboBox_SelectMonth.SelectedValue;
-            string SelectedMonth = SelectMonth.Content.ToString();
+            string SelectedMonth = (string) SelectMonth.Content;
 
             //선택된 week 체크
             ComboBoxItem SelectWeek = (ComboBoxItem)ComboBox_SelectWeek.SelectedValue;
-            string SelectedWeek = SelectWeek.Content.ToString();
+            string SelectedWeek = (string) SelectWeek.Content;
 
             //ProcessData 클래스의 split 메서드 호출해 해당 week 데이터 가져오기
             ProcessData Month = new ProcessData();
