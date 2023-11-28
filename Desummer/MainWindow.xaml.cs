@@ -16,6 +16,7 @@ namespace Desummer
             InitializeComponent();
 
             temperatrueProcessData = new ProcessData();
+            donutControl = new DonutControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData());
             plotControl = new PlotControl(temperaturePlot, temperatrueProcessData.TemperatureTotalData());
         }
 

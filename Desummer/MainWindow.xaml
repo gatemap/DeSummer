@@ -29,7 +29,9 @@
                         <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseLeftButtonDown="MouseLeftDown"/>
                     </Grid>
                     <Grid x:Name="temperatureGrid" Grid.Column="2">
-
+                        <ScottPlot:WpfPlot x:Name="temperatureDonut1" Height="105" Width="65" Margin="60,0,60,169"/>
+                        <ScottPlot:WpfPlot x:Name="temperatureDonut2" Height="105" Width="65" Margin="60,77,60,77"/>
+                        <ScottPlot:WpfPlot x:Name="temperatureDonut3" Height="105" Width="65" Margin="60,169,60,0"/>
                     </Grid>
                 </Grid>
                 <Grid x:Name="dataGrid" Grid.Row="1">
