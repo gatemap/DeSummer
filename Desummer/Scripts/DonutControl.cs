@@ -13,7 +13,7 @@ namespace Desummer.Scripts
         List<TemperatureData> datas = new List<TemperatureData>();
 
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
-        private int index = 49;
+        private int index = 50;
 
         public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas)
         {
@@ -24,7 +24,7 @@ namespace Desummer.Scripts
 
             DonutLiveStart();
         }
-        public void DonutLiveStart()
+        void DonutLiveStart()
         {
             // DispatcherTimer 초기화
             timer = new DispatcherTimer();
@@ -41,7 +41,6 @@ namespace Desummer.Scripts
 
             if (index < datas.Count) // 아직 List의 끝에 도달하지 않았으면
             {
-                // wpfPlot 갱신
                 SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
                 SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
                 SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");

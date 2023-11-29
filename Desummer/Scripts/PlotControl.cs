@@ -97,7 +97,9 @@ namespace Desummer.Scripts
             wpfPlot.Plot.Title("보온로 온도 그래프");
             wpfPlot.Plot.XLabel("날짜");
             wpfPlot.Plot.YLabel("보온로 온도");
-            wpfPlot.Plot.Legend();
+
+            var legend = wpfPlot.Plot.Legend();
+            legend.Location = Alignment.LowerLeft;      // 범례 좌측 하단으로 옮김
             wpfPlot.Refresh();
         }
 
