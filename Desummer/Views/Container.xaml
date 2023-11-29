@@ -19,11 +19,11 @@
         <ui:NavigationStore Margin="6,0,6,0" Frame="{Binding ElementName=RootFrame}" Precache="False" SelectedPageIndex="-1"
                             TransitionDuration="200" TransitionType="FadeInWithSlide">
             <ui:NavigationStore.Items>
-                <ui:NavigationItem Cache="True" Content="Home" Icon="Home24" PageTag="Home" PageType="{x:Type pages:Home}"/>
+                <ui:NavigationItem Content="Home" Icon="Home24" PageTag="Home" PageType="{x:Type pages:Home}"/>
                 <ui:NavigationSeparator />
-                <ui:NavigationItem Content="Graph" Icon="ChartMultiple20"/>
+                <ui:NavigationItem Cache="True" Content="Graph" Icon="ChartMultiple20" PageTag="Graph" PageType="{x:Type pages:Graph}"/>
                 <ui:NavigationSeparator />
-                <ui:NavigationItem Content="DataGrid" Icon="Grid28"/>
+                <ui:NavigationItem Content="DataGrid" Icon="Grid28" PageTag="DataGrid" PageType="{x:Type pages:DataGrid}"/>
             </ui:NavigationStore.Items>
         </ui:NavigationStore>
         <Grid Grid.Column="1">

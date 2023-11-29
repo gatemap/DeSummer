@@ -24,6 +24,7 @@ namespace Desummer.Scripts
 
             DonutLiveStart();
         }
+
         void DonutLiveStart()
         {
             // DispatcherTimer 초기화
@@ -31,8 +32,8 @@ namespace Desummer.Scripts
             timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds); // 500밀리세컨드
             timer.Tick += UpdateDonutCharts; // UpdateCharts 메서드 호출
             timer.Start(); // 타이머 시작
-            
         }
+
         private void UpdateDonutCharts(object sender, EventArgs e)
         {
             // 일시정지 중이면 아무것도 안함
@@ -52,6 +53,13 @@ namespace Desummer.Scripts
                 timer.Stop(); // 타이머 정지
             }
         }
+        
+        /// <summary>
+        /// 도넛차트 설정(셋팅)
+        /// </summary>
+        /// <param name="plot"></param>
+        /// <param name="donutControl"></param>
+        /// <param name="str"></param>
         void SettingDonut(Plot plot, WpfPlot donutControl, string str)
         {
             Color color1 = Color.FromArgb(255, 0, 255, 0); // (투명도, R, G, B) values color
