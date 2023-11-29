@@ -4,7 +4,7 @@ using System.Windows.Threading;
 
 namespace Desummer.Scripts
 {
-    class PlotControl
+    partial class PlotControl
     {
         WpfPlot wpfPlot;
         SignalPlot athermalFurnace, bthermalFurnace, cthermalFurnace;
@@ -25,6 +25,7 @@ namespace Desummer.Scripts
         Crosshair crosshair;
 
         readonly int copyDataAmount = 50;
+        readonly int liveUpdateMilliseconds = 500;
         readonly double dayRate = 5 * 24 * 60;
 
         public PlotControl(WpfPlot wpfPlot, List<TemperatureData> datas)
@@ -125,10 +126,10 @@ namespace Desummer.Scripts
         public void Start() 
         { 
             // period가 500이므로 500밀리세컨드 마다 UpdateData()를 호출
-            _updateDataTimer = new Timer(_ => UpdateData(), null, 0, 500);
+            _updateDataTimer = new Timer(_ => UpdateData(), null, 0, liveUpdateMilliseconds);
 
             _renderTimer = new DispatcherTimer();
-            _renderTimer.Interval = TimeSpan.FromMilliseconds(500);
+            _renderTimer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds);
             _renderTimer.Tick += Render;
             _renderTimer.Start();
         }

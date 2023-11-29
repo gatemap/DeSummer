@@ -1,6 +1,4 @@
 ﻿using Desummer.Scripts;
-using ScottPlot.Plottable;
-using ScottPlot;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,27 +9,24 @@ namespace Desummer
     /// </summary>
     public partial class MainWindow : Window
     {
-        PlotControl plotControl;
-        DataGridControl ShowOnDataGrid;
         ProcessData temperatrueProcessData;
-        DonutControl donutControl;
+
+        PlotControl plotControl;
+        PlotControl donutControl;
+
+        DataGridControl showOnDataGrid;
 
         public MainWindow()
         {
             InitializeComponent();
 
             temperatrueProcessData = new ProcessData();
-            donutControl = new DonutControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData());
             plotControl = new PlotControl(temperaturePlot, temperatrueProcessData.TemperatureTotalData());
+            donutControl = new PlotControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData());
 
             //실행했을때 데이터그리드가 비어있지 않게 전체 데이터에 대한 요약 출력
-            ShowOnDataGrid = new DataGridControl();
-            ShowOnDataGrid.MinMaxAvg(DataGrid_TempData, temperatrueProcessData.TemperatureTotalData());
-        }
-
-        private void MouseLeftDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            plotControl.PauseGraph();
+            showOnDataGrid = new DataGridControl();
+            showOnDataGrid.MinMaxAvg(DataGrid_TempData, temperatrueProcessData.TemperatureTotalData());
         }
 
         private void ShowAthermalFurnace(object sender, RoutedEventArgs e)
@@ -85,8 +80,8 @@ namespace Desummer
             List<TemperatureData> Select_Month_Week = Month.SplitDataMonthly(SelectedMonth, SelectedWeek);
 
             //최대, 최소, 평균 출력하기
-            ShowOnDataGrid = new DataGridControl();
-            ShowOnDataGrid.MinMaxAvg(DataGrid_TempData, Select_Month_Week);
+            showOnDataGrid = new DataGridControl();
+            showOnDataGrid.MinMaxAvg(DataGrid_TempData, Select_Month_Week);
         }
 
         private void OnMouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -108,6 +103,16 @@ namespace Desummer
             if (plotControl is null || !plotControl.pauseGraph) return;
 
             plotControl.ShowCrosshairData();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (plotControl.pauseGraph)
+                pauseButton.Content = "재생";
+            else
+                pauseButton.Content = "일시정지";
+
+            plotControl.PauseGraph();
         }
     }
 }

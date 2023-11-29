@@ -1,54 +1,50 @@
 ﻿using ScottPlot;
 using ScottPlot.Plottable;
 using System.Drawing;
-using System.IO;
-using System.Reflection.Emit;
 using System.Windows.Threading;
 
 namespace Desummer.Scripts
 {
-    class DonutControl
+    partial class PlotControl
     {
         WpfPlot temperatureDonut1;
         WpfPlot temperatureDonut2;
         WpfPlot temperatureDonut3;
         List<TemperatureData> datas = new List<TemperatureData>();
-        private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
-        private int index = 0;
-        private Color color1;
-        private Color color2;
 
-        public DonutControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas)
+        private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
+        private int index = 49;
+
+        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas)
         {
             this.temperatureDonut1 = temperatureDonut1;
             this.temperatureDonut2 = temperatureDonut2;
             this.temperatureDonut3 = temperatureDonut3;
             this.datas = datas;
-            Start();
+
+            DonutLiveStart();
         }
-        public void Start()
+        public void DonutLiveStart()
         {
             // DispatcherTimer 초기화
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.075); // 0.075초마다
+            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds); // 500밀리세컨드
             timer.Tick += UpdateDonutCharts; // UpdateCharts 메서드 호출
             timer.Start(); // 타이머 시작
             
         }
         private void UpdateDonutCharts(object sender, EventArgs e)
         {
+            // 일시정지 중이면 아무것도 안함
+            if (pauseGraph)
+                return;
+
             if (index < datas.Count) // 아직 List의 끝에 도달하지 않았으면
             {
-                TemperatureData data = datas[index];
-
-                var plot1 = temperatureDonut1.Plot;
-                var plot2 = temperatureDonut2.Plot;
-                var plot3 = temperatureDonut3.Plot;
-
-                // wpfPlot1 갱신
-                SettingDoNut(temperatureDonut1.Plot, temperatureDonut1, "A");
-                SettingDoNut(temperatureDonut2.Plot, temperatureDonut2, "B");
-                SettingDoNut(temperatureDonut3.Plot, temperatureDonut3, "C");
+                // wpfPlot 갱신
+                SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
+                SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
+                SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
 
                 index++;
             }
@@ -57,7 +53,7 @@ namespace Desummer.Scripts
                 timer.Stop(); // 타이머 정지
             }
         }
-        void SettingDoNut(Plot plot, WpfPlot donutControl, string str)
+        void SettingDonut(Plot plot, WpfPlot donutControl, string str)
         {
             Color color1 = Color.FromArgb(255, 0, 255, 0); // (투명도, R, G, B) values color
             Color color2 = Color.FromArgb(255, 240, 240, 240); // (투명도, R, G, B) Max values color

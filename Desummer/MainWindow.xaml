@@ -27,13 +27,14 @@
                         <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="5,102,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowCthermalFurnace" Unchecked="HideCthermalFurnace"/>
                     </Grid>
                     <Grid x:Name="graphGrid" Grid.Column="1">
-                        <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseLeftButtonDown="MouseLeftDown" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove"/>
+                        <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove"/>
                 </Grid>
                     <Grid x:Name="temperatureGrid" Grid.Column="2">
                         <ScottPlot:WpfPlot x:Name="temperatureDonut1" Height="105" Width="65" Margin="40,0,40,169"/>
                         <ScottPlot:WpfPlot x:Name="temperatureDonut2" Height="105" Width="65" Margin="40,80,40,80"/>
                         <ScottPlot:WpfPlot x:Name="temperatureDonut3" Height="105" Width="65" Margin="40,169,40,0"/>
-                    </Grid>
+                    <Button x:Name="pauseButton" Content="일시정지" HorizontalAlignment="Left" Margin="13,245,0,0" VerticalAlignment="Top" Click="Button_Click" Padding="3,3,3,5"/>
+                </Grid>
                 </Grid>
                 <Grid x:Name="dataGrid" Grid.Row="1">
                     <ComboBox x:Name="ComboBox_SelectMonth" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
