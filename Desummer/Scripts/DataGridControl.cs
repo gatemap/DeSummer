@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Wpf.Ui.Controls;
 
 namespace Desummer.Scripts
@@ -21,15 +22,15 @@ namespace Desummer.Scripts
             List<int> B_temp = Select_Month_Week.Select(item => item.B_temp).ToList();
             List<int> C_temp = Select_Month_Week.Select(item => item.C_temp).ToList();
 
-            //660~750 정상 온도일 때의 데이터 갯수
+            //680~750 정상 온도일 때의 데이터 갯수
             double normal_A = (from temp in A_temp
-                               where temp >= 660 && temp <= 750
+                               where temp >= 680 && temp <= 750
                                select temp).Count();
             double normal_B = (from temp in B_temp
-                               where temp >= 660 && temp <= 750
+                               where temp >= 680 && temp <= 750
                                select temp).Count();
             double normal_C = (from temp in C_temp
-                               where temp >= 660 && temp <= 750
+                               where temp >= 680 && temp <= 750
                                select temp).Count();
 
             //그리드에 데이터 리스트 넣기
@@ -45,9 +46,48 @@ namespace Desummer.Scripts
                 System.Windows.MessageBox.Show("데이터가 없습니다");
             }
             grid.ItemsSource = list;
+            //progressRingA 색 조정
             progressRingA.Progress = Math.Round(normal_A / A_temp.Count() * 100, 2);
+            if(Math.Round(normal_A / A_temp.Count() * 100, 2) > 66)
+            {
+                progressRingA.Foreground = new SolidColorBrush(Colors.SpringGreen);
+            }
+            else if (Math.Round(normal_A / A_temp.Count() * 100, 2) > 33)
+            {
+                progressRingA.Foreground = new SolidColorBrush(Colors.LightGoldenrodYellow);
+            }
+            else
+            {
+                progressRingA.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            //progressRingB 색 조정
             progressRingB.Progress = Math.Round(normal_B / B_temp.Count() * 100, 2);
+            if (Math.Round(normal_B / B_temp.Count() * 100, 2) > 66)
+            {
+                progressRingB.Foreground = new SolidColorBrush(Colors.SpringGreen);
+            }
+            else if (Math.Round(normal_B / B_temp.Count() * 100, 2) > 33)
+            {
+                progressRingB.Foreground = new SolidColorBrush(Colors.LightGoldenrodYellow);
+            }
+            else
+            {
+                progressRingB.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            //progressRingC 색 조정
             progressRingC.Progress = Math.Round(normal_C / C_temp.Count() * 100, 2);
+            if (Math.Round(normal_C / C_temp.Count() * 100, 2) > 66)
+            {
+                progressRingC.Foreground = new SolidColorBrush(Colors.SpringGreen);
+            }
+            else if (Math.Round(normal_C / C_temp.Count() * 100, 2) > 33)
+            {
+                progressRingC.Foreground = new SolidColorBrush(Colors.LightGoldenrodYellow);
+            }
+            else
+            {
+                progressRingC.Foreground = new SolidColorBrush(Colors.Red);
+            }
 
             textBlockA.Text = "  A로\n" + Math.Round(normal_A / A_temp.Count() * 100, 2).ToString() + "%";
             textBlockB.Text = "  B로\n" + Math.Round(normal_B / B_temp.Count() * 100, 2).ToString() + "%";
