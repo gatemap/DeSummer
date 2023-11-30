@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Wpf.Ui.Controls;
 
 namespace Desummer.Scripts
 {
@@ -11,7 +12,9 @@ namespace Desummer.Scripts
         public double AverageValue { get; private set; }
         public double normal_rate { get; private set; }
 
-        public void MinMaxAvg(DataGrid grid, List<TemperatureData> Select_Month_Week)
+        public void MinMaxAvg(System.Windows.Controls.DataGrid grid, List<TemperatureData> Select_Month_Week,
+            ProgressRing progressRingA, ProgressRing progressRingB, ProgressRing progressRingC,
+            TextBlock textBlockA, TextBlock textBlockB, TextBlock textBlockC)
         {
             //A, B, C로의 온도 리스트
             List<int> A_temp = Select_Month_Week.Select(item => item.A_temp).ToList();
@@ -33,15 +36,22 @@ namespace Desummer.Scripts
             List<DataGridControl> list = new List<DataGridControl>();
             try
             {
-                list.Add(new DataGridControl { Way = "A로", MinValue = A_temp.Min(), MaxValue = A_temp.Max(), AverageValue = Math.Round(A_temp.Average(), 2), normal_rate = Math.Round(normal_A / A_temp.Count() * 100, 2) });
-                list.Add(new DataGridControl { Way = "B로", MinValue = B_temp.Min(), MaxValue = B_temp.Max(), AverageValue = Math.Round(B_temp.Average(), 2), normal_rate = Math.Round(normal_B / B_temp.Count() * 100, 2) });
-                list.Add(new DataGridControl { Way = "C로", MinValue = C_temp.Min(), MaxValue = C_temp.Max(), AverageValue = Math.Round(C_temp.Average(), 2), normal_rate = Math.Round(normal_C / C_temp.Count() * 100, 2) });
+                list.Add(new DataGridControl { Way = "A로", MinValue = A_temp.Min(), MaxValue = A_temp.Max(), AverageValue = Math.Round(A_temp.Average(), 2) });
+                list.Add(new DataGridControl { Way = "B로", MinValue = B_temp.Min(), MaxValue = B_temp.Max(), AverageValue = Math.Round(B_temp.Average(), 2) });
+                list.Add(new DataGridControl { Way = "C로", MinValue = C_temp.Min(), MaxValue = C_temp.Max(), AverageValue = Math.Round(C_temp.Average(), 2) });
             }
             catch
         {
-                MessageBox.Show("데이터가 없습니다");
+                System.Windows.MessageBox.Show("데이터가 없습니다");
             }
             grid.ItemsSource = list;
+            progressRingA.Progress = Math.Round(normal_A / A_temp.Count() * 100, 2);
+            progressRingB.Progress = Math.Round(normal_B / B_temp.Count() * 100, 2);
+            progressRingC.Progress = Math.Round(normal_C / C_temp.Count() * 100, 2);
+
+            textBlockA.Text = "  A로\n" + Math.Round(normal_A / A_temp.Count() * 100, 2).ToString() + "%";
+            textBlockB.Text = "  B로\n" + Math.Round(normal_B / B_temp.Count() * 100, 2).ToString() + "%";
+            textBlockC.Text = "  C로\n" + Math.Round(normal_C / C_temp.Count() * 100, 2).ToString() + "%";
         }
     }
 }
