@@ -9,13 +9,17 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Background="Black"
-        Title="DeSummer" Height="500" Width="950">
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown"
+        Title="DeSummer" Height="500" Width="950"
+        Background="Black">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="650*"/>
         </Grid.ColumnDefinitions>
+
         <ui:NavigationStore x:Name="navigation" Margin="6,0,6,0" Frame="{Binding ElementName=RootFrame}" Precache="False" SelectedPageIndex="-1"
                             TransitionDuration="200" TransitionType="FadeInWithSlide" Loaded="navigation_Loaded">
             <ui:NavigationStore.Items>
@@ -27,12 +31,45 @@
             </ui:NavigationStore.Items>
         </ui:NavigationStore>
         <Grid Grid.Column="1">
+
             <Border CornerRadius="8,0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnMinimize"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="ㅡ"
+                        Foreground="LightGray"
+                        FontSize="16"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        Click="btnMinimize_Click">
+
+                        </Button>
+                        <Button x:Name="btnClose"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="LightGray"
+                        FontSize="12"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        Click="btnClose_Click">
+
+                        </Button>
+                    </Grid>
                     <Frame x:Name="RootFrame" Grid.Row="1" Grid.IsSharedSizeScope="True"/>
                 </Grid>
             </Border>
