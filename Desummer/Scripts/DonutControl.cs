@@ -63,7 +63,7 @@ namespace Desummer.Scripts
         void SettingDonut(Plot plot, WpfPlot donutControl, string str)
         {
             Color color1 = Color.FromArgb(255, 85, 156, 228); // (투명도, R, G, B) values color
-            Color color2 = Color.FromArgb(255, 30, 30, 30); // (투명도, R, G, B) Max values color
+            Color color2 = Color.FromArgb(255, 50, 50, 50); // (투명도, R, G, B) Max values color
 
             TemperatureData data = datas[index];
 
@@ -90,9 +90,9 @@ namespace Desummer.Scripts
                 pie.DonutLabel = data.C_temp.ToString() + '℃'; // 현재 온도를 표시할 label}
             }
             pie.DonutSize = .7;
-            pie.CenterFont.Size = 12;
+            pie.CenterFont.Size = 20;
             pie.CenterFont.Color = color1; // font color
-            pie.OutlineSize = 1;
+            pie.OutlineSize = 0;
             pie.SliceFillColors = new Color[] { color1, color2 };
             
             donutControl.Refresh(); // wpfPlot1 갱신

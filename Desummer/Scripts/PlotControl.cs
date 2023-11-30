@@ -163,6 +163,7 @@ namespace Desummer.Scripts
             // x축값 갱신을 위해서 그래프를 아예 지우고
             wpfPlot.Plot.Clear();
             wpfPlot.Plot.Style(style: ScottPlot.Style.Gray2);
+            wpfPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
 
             // 새로 그려서
             athermalFurnace = wpfPlot.Plot.AddSignal(aTempCopy, sampleRate: dayRate, label: "A로 온도");

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\space\Desktop\MyRepo\WPF\Desummer\Desummer\obj\Debug\net7.0-windows\
+C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\
 Desummer
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\space\Desktop\MyRepo\WPF\Desummer\Desummer\App.xaml
-11407045341
+C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\App.xaml
+4-1867025619
 
-4-1459365347
-1981723223080
-MainWindow.xaml;
+13682868415
+2021038102425
+Views\Container.xaml;Views\Pages\DataGrid.xaml;Views\Pages\Graph.xaml;Views\Pages\Home.xaml;
 
 False
 
