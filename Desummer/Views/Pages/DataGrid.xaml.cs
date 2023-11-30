@@ -20,7 +20,9 @@ namespace Desummer.Views.Pages
 
             //실행했을때 데이터그리드가 비어있지 않게 전체 데이터에 대한 요약 출력
             showOnDataGrid = new DataGridControl();
-            showOnDataGrid.MinMaxAvg(DataGrid_TempData, temperatrueProcessData.TemperatureTotalData());
+            showOnDataGrid.MinMaxAvg(DataGrid_TempData, temperatrueProcessData.TemperatureTotalData(),
+                ProgressRing_Atemp, ProgressRing_Btemp, ProgressRing_Ctemp,
+                TextBlock_Atemp, TextBlock_Btemp, TextBlock_Ctemp);
         }
 
         private void Button_ShowData_Click(object sender, RoutedEventArgs e)
@@ -39,7 +41,9 @@ namespace Desummer.Views.Pages
 
             //최대, 최소, 평균 출력하기
             showOnDataGrid = new DataGridControl();
-            showOnDataGrid.MinMaxAvg(DataGrid_TempData, Select_Month_Week);
+            showOnDataGrid.MinMaxAvg(DataGrid_TempData, Select_Month_Week,
+                ProgressRing_Atemp, ProgressRing_Btemp, ProgressRing_Ctemp,
+                TextBlock_Atemp, TextBlock_Btemp, TextBlock_Ctemp);
         }
     }
 }
