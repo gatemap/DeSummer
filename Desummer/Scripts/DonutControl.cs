@@ -62,14 +62,17 @@ namespace Desummer.Scripts
         /// <param name="str"></param>
         void SettingDonut(Plot plot, WpfPlot donutControl, string str)
         {
-            Color color1 = Color.FromArgb(255, 0, 255, 0); // (투명도, R, G, B) values color
-            Color color2 = Color.FromArgb(255, 240, 240, 240); // (투명도, R, G, B) Max values color
+            Color color1 = Color.FromArgb(255, 85, 156, 228); // (투명도, R, G, B) values color
+            Color color2 = Color.FromArgb(255, 30, 30, 30); // (투명도, R, G, B) Max values color
 
             TemperatureData data = datas[index];
 
             // 기존 Plot 초기화
             plot.Clear();
-            plot.Title($"{str}로");
+            plot.Title($"{str}로", color:Color.White);
+            plot.Style(figureBackground: System.Drawing.Color.Transparent);
+            plot.Style(dataBackground: System.Drawing.Color.Transparent);
+
             PiePlot pie;
             if (str == "A")
             {
@@ -86,7 +89,7 @@ namespace Desummer.Scripts
                 pie = plot.AddPie(new double[] { data.C_temp, 2600 }); // 2600 = Max values
                 pie.DonutLabel = data.C_temp.ToString() + '℃'; // 현재 온도를 표시할 label}
             }
-            pie.DonutSize = .8;
+            pie.DonutSize = .7;
             pie.CenterFont.Size = 12;
             pie.CenterFont.Color = color1; // font color
             pie.OutlineSize = 1;
