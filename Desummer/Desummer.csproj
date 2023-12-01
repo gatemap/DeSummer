@@ -8,11 +8,40 @@
     <UseWPF>true</UseWPF>
     <Title>DeSummer</Title>
     <Description>CodingOn Project in Desummer</Description>
+    <ApplicationIcon>casting-mold-2026123_1280.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="SoundResource.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\alarm.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="casting-mold-2026123_1280.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ScottPlot.WPF" Version="4.1.68" />
     <PackageReference Include="WPF-UI" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\alarm.mp3" />
+    <Resource Include="SoundResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SoundResource.Designer.cs</LastGenOutput>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SoundResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SoundResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
