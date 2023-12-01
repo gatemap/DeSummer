@@ -39,9 +39,9 @@
                 <ScottPlot:WpfPlot x:Name="temperatureDonut1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="135" Height="165" Margin="40,5,0,0"/>
                 <ScottPlot:WpfPlot x:Name="temperatureDonut2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="135" Height="165" Margin="0,5,0,0"/>
                 <ScottPlot:WpfPlot x:Name="temperatureDonut3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="135" Height="165" Margin="0,5,40,0"/>
-                <TextBlock x:Name="Donut1Value" Margin="80,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4"/>
-                <TextBlock x:Name="Donut2Value" Margin="395,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4"/>
-                <TextBlock x:Name="Donut3Value" Margin="710,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4" />
+                <TextBlock x:Name="Donut1Value" Margin="85,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4"/>
+                <TextBlock x:Name="Donut2Value" Margin="405,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4"/>
+                <TextBlock x:Name="Donut3Value" Margin="725,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4" />
             </Grid>
         </Grid>
     </Grid>

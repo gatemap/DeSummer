@@ -8,8 +8,56 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Home">
-    <Grid>
-        <Label Content="# 스마트팩토리 알루미늄 보온로 관리 프로그램" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="392" Width="747"/>
+    <StackPanel>
+        <TextBlock Text="Home"
+                   Foreground="White"
+                   FontSize="28"
+                   HorizontalAlignment="Left"
+                   Margin="0,0,0,20"/>
 
-    </Grid>
+        <Border CornerRadius="20"
+                Height="400">
+            <StackPanel>
+                <TextBlock Text="스마트팩토리 알루미늄 보온로 관리 프로그램"
+                           Foreground="White"
+                           FontSize="20"
+                           Margin="20,10,10,0"/>
+                <TextBlock Text="- 소개"
+                           Foreground="White"
+                           FontSize="15"
+                           Margin="20,10,10,0"/>
+                <TextBlock Foreground="White"
+                           FontSize="14"
+                           TextWrapping="Wrap"
+                           Margin="20,10,10,0">
+                    알루미늄 보온로를 효과적으로 관리하고 생산성을 높이기 위한 스마트팩토리 솔루션을 소개합니다. 이 프로그램은 C# WPF 기술을 활용하여 개발되었으며, A, B, C 등 다양한 보온로를 녹인 알루미늄을 효율적으로 유지하고 모니터링 할 수 있는 강력한 도구를 제공합니다.
+                </TextBlock>
+                <TextBlock Text="- 주요 기능"
+                           Foreground="White"
+                           FontSize="15"
+                           Margin="20,10,10,0"/>
+                <TextBlock Foreground="White"
+                           FontSize="14"
+                           TextWrapping="Wrap"
+                           Margin="20,10,10,0">
+                    1. 다양한 보온로 지원: A, B, C 등 다양한 유형의 보온로를 지원하여 생산 라인의 다양한 요구에 대응합니다.<LineBreak/>
+                    2. 실시간 데이터 모니터링: 알루미늄 보온로의 온도, 상태 등을 실시간으로 모니터링하여 생산 프로세스를 쉽게 파악할 수 있습니다.<LineBreak/>
+                    3. 알림 및 경고 시스템: 고온, 저온 또는 이상 상태일 때 자동으로 알림을 받아 예방 조치를 할 수 있습니다.<LineBreak/>
+                    4. 생산 계획 통합: 생산 계획을 효과적으로 관리하고 보온로의 작동을 최적화하여 생산성을 향상시킵니다.<LineBreak/>
+                    5. 사용자 친화적 인터페이스: 직관적이고 사용자 친화적인 인터페이스를 통해 쉽게 조작하고 모니터링할 수 있습니다.
+                </TextBlock>
+                <TextBlock Text="- 문의 및 지원"
+                           Foreground="White"
+                           FontSize="15"
+                           Margin="20,10,10,0"/>
+                <TextBlock Foreground="White"
+                           FontSize="14"
+                           TextWrapping="Wrap"
+                           Margin="20,10,10,0">
+                    자세한 내용이나 데모 요청, 기술 지원에 대한 문의는 Desummer로 연락해주세요.<LineBreak/>
+                    이 프로그램은 더욱 스마트하고 효율적인 생산환경을 구축하고자 하는 기업들을 위한 완벽한 솔루션입니다. 생산 과정을 최적화하고 불필요한 중단을 방지하여 비용을 절감하고 생산성을 향상시킬 수 있습니다.
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </Page>

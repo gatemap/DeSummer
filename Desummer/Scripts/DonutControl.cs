@@ -3,6 +3,9 @@ using ScottPlot.Plottable;
 using System.Drawing;
 using System.Windows.Threading;
 using System.Windows.Controls;
+using Desummer.Views.Pages;
+using System.Windows.Media;
+using Color = System.Drawing.Color;
 
 namespace Desummer.Scripts
 {
@@ -19,7 +22,11 @@ namespace Desummer.Scripts
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
         private int index = 50;
 
-        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas, TextBlock donut1Value, TextBlock donut2Value, TextBlock donut3Value)
+        Graph graph;
+        MediaPlayer MP3 = new MediaPlayer();
+        Uri uri = new Uri("C:\\Users\\o\\Downloads\\DeSummer\\Desummer\\Resources\\alarm.mp3");
+
+        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas, TextBlock donut1Value, TextBlock donut2Value, TextBlock donut3Value, Graph graph)
         {
             this.temperatureDonut1 = temperatureDonut1;
             this.temperatureDonut2 = temperatureDonut2;
@@ -28,7 +35,7 @@ namespace Desummer.Scripts
             this.donut1Value = donut1Value;
             this.donut2Value = donut2Value;
             this.donut3Value = donut3Value;
-
+            this.graph = graph;
             DonutLiveStart();
         }
 
@@ -95,6 +102,17 @@ namespace Desummer.Scripts
             {
                 gauges = plot.AddRadialGauge(new double[] { data.C_temp, 2600 - data.A_temp }); // 2600 = Max values
                 donut3Value.Text = $"{data.C_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
+            }
+
+            if (data.A_temp < 680 || data.A_temp > 750 || data.B_temp < 680 || data.B_temp > 750 || data.C_temp < 680 || data.C_temp > 750)
+            {
+                graph.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 180, 0, 0));
+                MP3.Open(uri);
+                MP3.Play();
+            }
+            else
+            {
+                graph.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 0, 0));
             }
             gauges.GaugeMode = ScottPlot.RadialGaugeMode.SingleGauge;
             gauges.MaximumAngle = 360;

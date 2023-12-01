@@ -20,7 +20,7 @@ namespace Desummer.Views.Pages
 
             temperatrueProcessData = new ProcessData();
             plotControl = new PlotControl(temperaturePlot, temperatrueProcessData.TemperatureTotalData());
-            donutControl = new PlotControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData(), Donut1Value, Donut2Value, Donut3Value);
+            donutControl = new PlotControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData(), Donut1Value, Donut2Value, Donut3Value, this);
         }
 
         private void ShowAthermalFurnace(object sender, RoutedEventArgs e)
