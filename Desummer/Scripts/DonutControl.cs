@@ -2,6 +2,7 @@
 using ScottPlot.Plottable;
 using System.Drawing;
 using System.Windows.Threading;
+using System.Windows.Controls;
 
 namespace Desummer.Scripts
 {
@@ -10,17 +11,23 @@ namespace Desummer.Scripts
         WpfPlot temperatureDonut1;
         WpfPlot temperatureDonut2;
         WpfPlot temperatureDonut3;
+        private TextBlock donut1Value;
+        private TextBlock donut2Value;
+        private TextBlock donut3Value;
         List<TemperatureData> datas = new List<TemperatureData>();
 
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
         private int index = 50;
 
-        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas)
+        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas, TextBlock donut1Value, TextBlock donut2Value, TextBlock donut3Value)
         {
             this.temperatureDonut1 = temperatureDonut1;
             this.temperatureDonut2 = temperatureDonut2;
             this.temperatureDonut3 = temperatureDonut3;
             this.datas = datas;
+            this.donut1Value = donut1Value;
+            this.donut2Value = donut2Value;
+            this.donut3Value = donut3Value;
 
             DonutLiveStart();
         }
@@ -69,31 +76,33 @@ namespace Desummer.Scripts
 
             // 기존 Plot 초기화
             plot.Clear();
-            plot.Title($"{str}로", color:Color.White);
+            plot.Title($"{str}로", color:Color.White, size:15, bold: true);
             plot.Style(figureBackground: System.Drawing.Color.Transparent);
             plot.Style(dataBackground: System.Drawing.Color.Transparent);
 
-            PiePlot pie;
+            RadialGaugePlot gauges;
             if (str == "A")
             {
-                pie = plot.AddPie(new double[] { data.A_temp, 2600 }); // 2600 = Max values
-                pie.DonutLabel = (data.A_temp.ToString()) + '℃'; // 현재 온도를 표시할 label
+                gauges = plot.AddRadialGauge(new double[] { data.A_temp, 2600 - data.A_temp }); // 2600 = Max values
+                donut1Value.Text = $"{data.A_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
             }
             else if (str == "B")
             {
-                pie = plot.AddPie(new double[] { data.B_temp, 2600 }); // 2600 = Max values
-                pie.DonutLabel = data.B_temp.ToString() + '℃'; // 현재 온도를 표시할 label}
+                gauges = plot.AddRadialGauge(new double[] { data.B_temp, 2600 - data.A_temp }); // 2600 = Max values
+                donut2Value.Text = $"{data.B_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
             }
             else
             {
-                pie = plot.AddPie(new double[] { data.C_temp, 2600 }); // 2600 = Max values
-                pie.DonutLabel = data.C_temp.ToString() + '℃'; // 현재 온도를 표시할 label}
+                gauges = plot.AddRadialGauge(new double[] { data.C_temp, 2600 - data.A_temp }); // 2600 = Max values
+                donut3Value.Text = $"{data.C_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
             }
-            pie.DonutSize = .7;
-            pie.CenterFont.Size = 20;
-            pie.CenterFont.Color = color1; // font color
-            pie.OutlineSize = 0;
-            pie.SliceFillColors = new Color[] { color1, color2 };
+            gauges.GaugeMode = ScottPlot.RadialGaugeMode.SingleGauge;
+            gauges.MaximumAngle = 360;
+            gauges.StartingAngle = 180;
+            gauges.ShowLevels = false;
+            gauges.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            gauges.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            gauges.Colors = new Color[] { Color.FromArgb(255, 85, 156, 228), Color.FromArgb(255, 50, 50, 50) }; // {1번 value 색상, 2번 value 색상} (투명도, R, G, B)
             
             donutControl.Refresh(); // wpfPlot1 갱신
         }

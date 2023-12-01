@@ -20,25 +20,28 @@
                 <ColumnDefinition Width="680*"/>
             </Grid.ColumnDefinitions>
             <Grid>
-                <Rectangle RadiusX="30" RadiusY="30" Fill="#FF1E1D26" Margin="0,10,0,132" />
+                <Rectangle RadiusX="15" RadiusY="10" Fill="#FF1E1D26" Margin="0,10,0,132" />
                 <CheckBox Content="A 보온로 온도" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowAthermalFurnace" Unchecked="HideAthermalFurnace" FontSize="12"/>
                 <CheckBox Content="B 보온로 온도" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowBthermalFurnace" Unchecked="HideBthermalFurnace" FontSize="12"/>
                 <CheckBox Content="C 보온로 온도" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" IsChecked="True" Checked="ShowCthermalFurnace" Unchecked="HideCthermalFurnace" FontSize="12"/>
                 <ui:Button x:Name="pauseButton" Content="일시정지" FontSize="14" FontWeight="Bold" Appearance="Primary" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Click="Button_Click" Padding="3,3,3,5" Margin="0,0,0,15"/>
             </Grid>
             <Grid Grid.Column="1">
-                <Rectangle RadiusX="30" RadiusY="30" Fill="#FF1E1D26" Margin="10,10,10,10">
+                <Rectangle RadiusX="15" RadiusY="10" Fill="#FF1E1D26" Margin="10,10,10,10">
                 </Rectangle>
                 <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove" Margin="10,10,10,10"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
-            <Rectangle RadiusX="30" RadiusY="30" Fill="#FF1E1D26" Margin="10,0,10,10">
+            <Rectangle RadiusX="15" RadiusY="10" Fill="#FF1E1D26" Margin="10,0,10,10">
             </Rectangle>
             <Grid>
-                <ScottPlot:WpfPlot x:Name="temperatureDonut1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="135" Height="165" Margin="40,10,0,0"/>
-                <ScottPlot:WpfPlot x:Name="temperatureDonut2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="135" Height="165" Margin="0,10,0,0"/>
-                <ScottPlot:WpfPlot x:Name="temperatureDonut3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="135" Height="165" Margin="0,10,40,0"/>
+                <ScottPlot:WpfPlot x:Name="temperatureDonut1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="135" Height="165" Margin="40,5,0,0"/>
+                <ScottPlot:WpfPlot x:Name="temperatureDonut2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="135" Height="165" Margin="0,5,0,0"/>
+                <ScottPlot:WpfPlot x:Name="temperatureDonut3" VerticalAlignment="Center" HorizontalAlignment="Right" Width="135" Height="165" Margin="0,5,40,0"/>
+                <TextBlock x:Name="Donut1Value" Margin="80,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4"/>
+                <TextBlock x:Name="Donut2Value" Margin="395,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4"/>
+                <TextBlock x:Name="Donut3Value" Margin="710,73,0,0" HorizontalAlignment="Left" Height="55" Width="80" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Foreground="#FF559CE4" />
             </Grid>
         </Grid>
     </Grid>
