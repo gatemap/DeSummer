@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Desummer.Scripts.DataGridControl">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAJAAAgAAAAAAAAAAAAAAAAAAAggAAAAAAA=</HashCode>
+      <FileName>Scripts\DataGridControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Desummer.Scripts.PlotControl">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQABQAUECoQGICAQABABIQIGrEIIAIAATBKMwCBABo=</HashCode>
+      <FileName>Scripts\DonutControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Desummer.Scripts.ProcessData">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIEAAAAAAAAAAAAAAAAQAAAAAEA=</HashCode>
+      <FileName>Scripts\ProcessData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Desummer.Scripts.TemperatureData">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAEAAA=</HashCode>
+      <FileName>Scripts\TemperatureData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Desummer.Views.Pages.DataGrid" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Pages\DataGrid.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Desummer.Views.Pages.Graph" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAEAAIAgAAAAAAAABAABEAABAAAAAAAAgAAAAAAIw=</HashCode>
+      <FileName>Views\Pages\Graph.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Desummer.Views.Pages.Home" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Pages\Home.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Desummer.Views.Container" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAEAAAAEAAAAAAAAAAAAAQAAAAQIAAAAARAABAAAA=</HashCode>
+      <FileName>Views\Container.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Malgun Gothic" Size="9" />
+</ClassDiagram>
