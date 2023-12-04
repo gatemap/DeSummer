@@ -8,6 +8,7 @@
       xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      FontFamily="/DeSummer;components/Resources/#AppleSDGothicNeoM00"
       Title="Graph">
     <Grid>
         <Grid.RowDefinitions>

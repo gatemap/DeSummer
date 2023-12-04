@@ -13,6 +13,7 @@
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Title="DeSummer" Height="500" Width="950"
+        FontFamily="/DeSummer;components/Resources/#AppleSDGothicNeoM00"
         Background="Black">
     <Grid>
         <Grid.ColumnDefinitions>

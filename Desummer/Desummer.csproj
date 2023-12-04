@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <None Remove="Resources\alarm.mp3" />
+    <None Remove="Resources\AppleSDGothicNeoM.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\alarm.mp3" />
+    <Resource Include="Resources\AppleSDGothicNeoM.ttf" />
     <Resource Include="SoundResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SoundResource.Designer.cs</LastGenOutput>
