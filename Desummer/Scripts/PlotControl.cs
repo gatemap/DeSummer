@@ -41,6 +41,9 @@ namespace Desummer.Scripts
 
             crosshair = this.wpfPlot.Plot.AddCrosshair(0, 0);
 
+            // 0~49번 데이터를 가져온 채로 그래프가 시작하기 때문에 그만큼을 시간에서 더해준다
+            dataFirstDay = dataFirstDay.AddMinutes(5 * copyDataAmount);
+
             Start();
         }
 

@@ -38,12 +38,4 @@
     </Resource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="SoundResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SoundResource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
 </Project>
