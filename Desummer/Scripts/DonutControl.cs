@@ -24,7 +24,7 @@ namespace Desummer.Scripts
 
         Graph graph;
         MediaPlayer MP3 = new MediaPlayer();
-        Uri uri = new Uri("C:\\Users\\o\\Downloads\\DeSummer\\Desummer\\Resources\\alarm.mp3");
+        Uri uri = new Uri("c:/Windows/Media/Windows Critical Stop.wav");
 
         public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas, TextBlock donut1Value, TextBlock donut2Value, TextBlock donut3Value, Graph graph)
         {
