@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using Desummer.Scripts;
+using Desummer.Views.Pages;
+using System.Windows;
 using System.Windows.Controls;
-using Wpf.Ui.Controls.Interfaces;
+
 using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui.Controls.Interfaces;
 
 namespace Desummer.Views
 {
@@ -10,9 +13,18 @@ namespace Desummer.Views
     /// </summary>
     public partial class Container : INavigationWindow
     {
+        public static Container main;
+        public PLCControl plcControl;
+        
         public Container()
         {
             InitializeComponent();
+
+            if(main == null)
+                main = this;
+
+            PLC plc = new PLC();
+            plcControl = new PLCControl(plc.failureIndicationText, plc.reconnectButton);
         }
 
         #region INavigation interface Method
@@ -34,7 +46,7 @@ namespace Desummer.Views
 
         private void navigation_Loaded(object sender, RoutedEventArgs e)
         {
-            Navigate(typeof(Pages.Home));
+            Navigate(typeof(Home));
         }
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

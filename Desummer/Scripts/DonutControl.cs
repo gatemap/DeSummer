@@ -1,11 +1,11 @@
 ﻿using ScottPlot;
 using ScottPlot.Plottable;
-using System.Drawing;
 using System.Windows.Threading;
 using System.Windows.Controls;
 using Desummer.Views.Pages;
 using System.Windows.Media;
 using Color = System.Drawing.Color;
+using Desummer.Views;
 
 namespace Desummer.Scripts
 {
@@ -21,6 +21,10 @@ namespace Desummer.Scripts
 
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
         private int index = 50;
+
+        bool prevATempNormal, currATempNormal = false;
+        bool prevBTempNormal, currBTempNormal = false;
+        bool prevCTempNormal, currCTempNormal = false;
 
         Graph graph;
         MediaPlayer MP3 = new MediaPlayer();
@@ -84,24 +88,24 @@ namespace Desummer.Scripts
             // 기존 Plot 초기화
             plot.Clear();
             plot.Title($"{str}로", color:Color.White, size:15, bold: true);
-            plot.Style(figureBackground: System.Drawing.Color.Transparent);
-            plot.Style(dataBackground: System.Drawing.Color.Transparent);
+            plot.Style(figureBackground: Color.Transparent);
+            plot.Style(dataBackground: Color.Transparent);
 
             RadialGaugePlot gauges;
             if (str == "A")
             {
                 gauges = plot.AddRadialGauge(new double[] { data.A_temp, 2600 - data.A_temp }); // 2600 = Max values
-                donut1Value.Text = $"{data.A_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
+                donut1Value.Text = $"{data.A_temp}℃"; // 현재 온도를 표시할 TextBlock
             }
             else if (str == "B")
             {
                 gauges = plot.AddRadialGauge(new double[] { data.B_temp, 2600 - data.A_temp }); // 2600 = Max values
-                donut2Value.Text = $"{data.B_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
+                donut2Value.Text = $"{data.B_temp}℃"; // 현재 온도를 표시할 TextBlock
             }
             else
             {
                 gauges = plot.AddRadialGauge(new double[] { data.C_temp, 2600 - data.A_temp }); // 2600 = Max values
-                donut3Value.Text = $"{data.C_temp.ToString()}℃"; // 현재 온도를 표시할 TextBlock
+                donut3Value.Text = $"{data.C_temp}℃"; // 현재 온도를 표시할 TextBlock
             }
 
             if (data.A_temp < 680 || data.A_temp > 750 || data.B_temp < 680 || data.B_temp > 750 || data.C_temp < 680 || data.C_temp > 750)
@@ -114,7 +118,28 @@ namespace Desummer.Scripts
             {
                 graph.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 0, 0));
             }
-            gauges.GaugeMode = ScottPlot.RadialGaugeMode.SingleGauge;
+
+            #region PLC - PC 통신해서 데이터 쓰기
+
+            // 현재 정상동작인지 체크
+            currATempNormal = data.A_temp >= 680 && data.A_temp <= 750;
+            currBTempNormal = data.B_temp >= 680 && data.B_temp <= 750;
+            currCTempNormal = data.C_temp >= 680 && data.C_temp <= 750;
+
+            // 이전 값과 비교해서 다르면 통신한다
+            if (currATempNormal != prevATempNormal || currBTempNormal != prevBTempNormal || currCTempNormal != prevCTempNormal)
+            {
+                Container.main.plcControl.ConnectToPLC();
+                Container.main.plcControl.SendData(currATempNormal, currBTempNormal, currCTempNormal);
+            }
+
+            prevATempNormal = currATempNormal;
+            prevBTempNormal = currBTempNormal;
+            prevCTempNormal = currCTempNormal;
+
+            #endregion
+
+            gauges.GaugeMode = RadialGaugeMode.SingleGauge;
             gauges.MaximumAngle = 360;
             gauges.StartingAngle = 180;
             gauges.ShowLevels = false;
