@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 
-
 namespace Desummer.Views.Pages
 {
     /// <summary>
@@ -8,9 +7,16 @@ namespace Desummer.Views.Pages
     /// </summary>
     public partial class PLC : Page
     {
+        static bool initialize = false;
+
         public PLC()
         {
+            if (initialize)
+                return;
+
             InitializeComponent();
+
+            initialize = true;
         }
     }
 }

@@ -9,6 +9,7 @@
     <Title>DeSummer</Title>
     <Description>CodingOn Project in Desummer</Description>
     <ApplicationIcon>casting-mold-2026123_1280.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

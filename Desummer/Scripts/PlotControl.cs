@@ -25,7 +25,7 @@ namespace Desummer.Scripts
         Crosshair crosshair;
 
         readonly int copyDataAmount = 50;
-        readonly int liveUpdateMilliseconds = 500;
+        readonly int liveUpdateMilliseconds = 1000;
         readonly double dayRate = 5 * 24 * 60;
 
         public PlotControl(WpfPlot wpfPlot, List<TemperatureData> datas)
