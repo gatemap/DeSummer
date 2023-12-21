@@ -159,9 +159,9 @@ namespace Desummer.Scripts
             Array.Copy(bTempArr, currentIndex, bTempCopy, 0, bTempCopy.Length - 1);
             Array.Copy(cTempArr, currentIndex, cTempCopy, 0, cTempCopy.Length - 1);
 
-            aTempCopy[aTempCopy.Length - 1] = aTempArr[currentIndex];
-            bTempCopy[bTempCopy.Length - 1] = bTempArr[currentIndex];
-            cTempCopy[cTempCopy.Length - 1] = cTempArr[currentIndex];
+            aTempCopy[aTempCopy.Length - 1] = aTempArr[currentIndex + 50];
+            bTempCopy[bTempCopy.Length - 1] = bTempArr[currentIndex + 50];
+            cTempCopy[cTempCopy.Length - 1] = cTempArr[currentIndex + 50];
 
             dataFirstDay = dataFirstDay.AddMinutes(5);
             currentIndex++;

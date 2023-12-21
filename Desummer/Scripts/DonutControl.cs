@@ -22,7 +22,7 @@ namespace Desummer.Scripts
         List<TemperatureData> datas = new List<TemperatureData>();
 
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
-        private int index = 54;
+        private int index = 50;
 
         // A,B,C 보온로 이전, 현재 정상체크
         bool prevATempNormal, currATempNormal = false;
