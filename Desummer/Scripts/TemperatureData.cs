@@ -1,6 +1,6 @@
 ﻿namespace Desummer.Scripts
 {
-    class TemperatureData
+    public class TemperatureData
     {
         public string date {  get; private set; }
         public int A_temp {  get; private set; }

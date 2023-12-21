@@ -15,7 +15,8 @@ namespace Desummer.Views
     {
         public static Container main;
         public PLCControl plcControl;
-        
+        public PlotControl plotControl;
+
         public Container()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace Desummer.Views
                 main = this;
 
             PLC plc = new PLC();
-            plcControl = new PLCControl(plc.failureIndicationText, plc.reconnectButton);
+            Graph graph = new Graph();
         }
 
         #region INavigation interface Method
