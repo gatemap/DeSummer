@@ -11,7 +11,7 @@ namespace Desummer.Views
     /// <summary>
     /// Interaction logic for Container.xaml
     /// </summary>
-    public partial class Container : INavigationWindow
+    public partial class Container : Window, INavigationWindow
     {
         public static Container main;
         public PLCControl plcControl;
@@ -23,9 +23,6 @@ namespace Desummer.Views
 
             if(main == null)
                 main = this;
-
-            PLC plc = new PLC();
-            Graph graph = new Graph();
         }
 
         #region INavigation interface Method

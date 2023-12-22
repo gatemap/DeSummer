@@ -8,6 +8,7 @@ using ScottPlot.Plottable;
 
 using Desummer.Views;
 using Desummer.Views.Pages;
+using System.Diagnostics;
 
 namespace Desummer.Scripts
 {
@@ -22,12 +23,14 @@ namespace Desummer.Scripts
         List<TemperatureData> datas = new List<TemperatureData>();
 
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
-        private int index = 50;
+        private int index = 49;
 
         // A,B,C 보온로 이전, 현재 정상체크
         bool prevATempNormal, currATempNormal = false;
         bool prevBTempNormal, currBTempNormal = false;
         bool prevCTempNormal, currCTempNormal = false;
+
+        static object donutLockOjbect = new object();
 
         Graph graph;
         MediaPlayer MP3 = new MediaPlayer();
@@ -54,9 +57,11 @@ namespace Desummer.Scripts
             SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
             SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
 
+            index++;
+
             // DispatcherTimer 초기화
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds); // 500밀리세컨드
+            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds + 50); // 500밀리세컨드
             timer.Tick += UpdateDonutCharts; // UpdateCharts 메서드 호출
             timer.Start(); // 타이머 시작
         }
@@ -69,11 +74,19 @@ namespace Desummer.Scripts
 
             if (index < datas.Count) // 아직 List의 끝에 도달하지 않았으면
             {
-                SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
-                SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
-                SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
+                lock (donutLockOjbect)
+                {
+                    Debug.WriteLine($"도넛차트 업데이트 중! ({donutUpdate})");
 
-                index++;
+                    SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
+                    SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
+                    SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
+
+                    SendCurrentData();
+
+                    index++;
+                    donutUpdate++;
+                }
             }
             else // 파일 끝인 경우
             {
@@ -128,8 +141,6 @@ namespace Desummer.Scripts
                 graph.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 0, 0));
             }
 
-            SendCurrentData();
-
             gauges.GaugeMode = RadialGaugeMode.SingleGauge;
             gauges.MaximumAngle = 360;
             gauges.StartingAngle = 180;
@@ -146,13 +157,19 @@ namespace Desummer.Scripts
             TemperatureData data = datas[index];
 
             // 현재 정상동작인지 체크
-            currATempNormal = data.A_temp >= 680 && data.A_temp <= 750;
-            currBTempNormal = data.B_temp >= 680 && data.B_temp <= 750;
-            currCTempNormal = data.C_temp >= 680 && data.C_temp <= 750;
+            currATempNormal = data.A_temp >= 680;
+            currBTempNormal = data.B_temp >= 680;
+            currCTempNormal = data.C_temp >= 680;
+
+            //currATempNormal = data.A_temp >= 680 && data.A_temp <= 750;
+            //currBTempNormal = data.B_temp >= 680 && data.B_temp <= 750;
+            //currCTempNormal = data.C_temp >= 680 && data.C_temp <= 750;
 
             // 이전 값과 비교해서 다르면 통신한다
             if (currATempNormal != prevATempNormal || currBTempNormal != prevBTempNormal || currCTempNormal != prevCTempNormal)
             {
+                Debug.WriteLine("진짜 PLC 통신함!");
+
                 Container.main.plcControl.ConnectToPLC();
                 Container.main.plcControl.SendData(currATempNormal, currBTempNormal, currCTempNormal);
             }

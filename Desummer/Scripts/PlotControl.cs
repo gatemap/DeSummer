@@ -1,5 +1,6 @@
 ﻿using ScottPlot;
 using ScottPlot.Plottable;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
@@ -20,13 +21,16 @@ namespace Desummer.Scripts
         DateTime dataFirstDay;
 
         int currentIndex = 0;
+        int donutUpdate = 1, plotUpdate = 1;
         public bool pauseGraph { get; private set; } = false;
 
         Crosshair crosshair;
 
+        static object plotLockOjbect = new object();
+
         readonly int totalMax = 760, totalMin = 660;
         readonly int copyDataAmount = 50;
-        readonly int liveUpdateMilliseconds = 2000;
+        readonly int liveUpdateMilliseconds = 500;
 
         public PlotControl(WpfPlot wpfPlot, List<TemperatureData> datas, TextBlock textBlock)
         {
@@ -159,15 +163,12 @@ namespace Desummer.Scripts
             Array.Copy(bTempArr, currentIndex, bTempCopy, 0, bTempCopy.Length - 1);
             Array.Copy(cTempArr, currentIndex, cTempCopy, 0, cTempCopy.Length - 1);
 
-            aTempCopy[aTempCopy.Length - 1] = aTempArr[currentIndex + 50];
-            bTempCopy[bTempCopy.Length - 1] = bTempArr[currentIndex + 50];
-            cTempCopy[cTempCopy.Length - 1] = cTempArr[currentIndex + 50];
+            aTempCopy[aTempCopy.Length - 1] = aTempArr[currentIndex + copyDataAmount];
+            bTempCopy[bTempCopy.Length - 1] = bTempArr[currentIndex + copyDataAmount];
+            cTempCopy[cTempCopy.Length - 1] = cTempArr[currentIndex + copyDataAmount];
 
             dataFirstDay = dataFirstDay.AddMinutes(5);
             currentIndex++;
-
-            // 렌더한다
-            wpfPlot.Plot.Render();
         }
 
         void Render(object sender, EventArgs e)
@@ -175,8 +176,15 @@ namespace Desummer.Scripts
             if (pauseGraph)
                 return;
 
-            dateText.Text = dataFirstDay.ToString("MM-dd\nHH:mm");
-            wpfPlot.Refresh();
+            lock (plotLockOjbect)
+            {
+                Debug.WriteLine($"Signal차트 업데이트 중!({plotUpdate})");
+
+                dateText.Text = dataFirstDay.ToString("MM-dd\nHH:mm");
+                wpfPlot.Refresh();
+
+                plotUpdate++;
+            }
         }
 
         /// <summary>
