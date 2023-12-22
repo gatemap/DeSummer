@@ -1,13 +1,16 @@
 ﻿using ScottPlot;
 using ScottPlot.Plottable;
+using System.Diagnostics;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Desummer.Scripts
 {
-    partial class PlotControl
+    public partial class PlotControl
     {
         WpfPlot wpfPlot;
         SignalPlot athermalFurnace, bthermalFurnace, cthermalFurnace;
+        TextBlock dateText;
 
         Timer _updateDataTimer;
         DispatcherTimer _renderTimer;
@@ -18,19 +21,21 @@ namespace Desummer.Scripts
         DateTime dataFirstDay;
 
         int currentIndex = 0;
-        int totalMax = 0, totalMin = int.MaxValue;
+        int donutUpdate = 1, plotUpdate = 1;
         public bool pauseGraph { get; private set; } = false;
-        bool aPlotVisible = true, bPlotVisible = true, cPlotVisible = true;
 
         Crosshair crosshair;
 
-        readonly int copyDataAmount = 50;
-        readonly int liveUpdateMilliseconds = 1000;
-        readonly double dayRate = 5 * 24 * 60;
+        static object plotLockOjbect = new object();
 
-        public PlotControl(WpfPlot wpfPlot, List<TemperatureData> datas)
+        readonly int totalMax = 760, totalMin = 660;
+        readonly int copyDataAmount = 50;
+        readonly int liveUpdateMilliseconds = 500;
+
+        public PlotControl(WpfPlot wpfPlot, List<TemperatureData> datas, TextBlock textBlock)
         {
             this.wpfPlot = wpfPlot;
+            dateText = textBlock;
 
             // 데이터 초기화
             InitTemperatureArray(datas);
@@ -39,15 +44,19 @@ namespace Desummer.Scripts
             // Y축 최대최소 설정
             SetYAxisMax();
 
-            crosshair = this.wpfPlot.Plot.AddCrosshair(0, 0);
-
+            dataFirstDay = new DateTime(2021, 1, 8);
             // 0~49번 데이터를 가져온 채로 그래프가 시작하기 때문에 그만큼을 시간에서 더해준다
             dataFirstDay = dataFirstDay.AddMinutes(5 * copyDataAmount);
+            dateText.Text = dataFirstDay.ToString("MM-dd\nHH:mm");
+
+            crosshair = this.wpfPlot.Plot.AddCrosshair(0, 0);
+            crosshair.IsVisible = false;
 
             Start();
         }
 
         #region 데이터 초기화
+
         /// <summary>
         /// 온도 데이터 초기화
         /// </summary>
@@ -88,17 +97,20 @@ namespace Desummer.Scripts
         /// </summary>
         void InitPlot()
         {
-            athermalFurnace = wpfPlot.Plot.AddSignal(aTempCopy, sampleRate: dayRate * 60 * 1000, label: "A로 온도");
-            bthermalFurnace = wpfPlot.Plot.AddSignal(bTempCopy, sampleRate: dayRate * 60 * 1000, label: "B로 온도");
-            cthermalFurnace = wpfPlot.Plot.AddSignal(cTempCopy, sampleRate: dayRate * 60 * 1000, label: "C로 온도");
+            athermalFurnace = wpfPlot.Plot.AddSignal(aTempCopy, label: "A로 온도");
+            bthermalFurnace = wpfPlot.Plot.AddSignal(bTempCopy, label: "B로 온도");
+            cthermalFurnace = wpfPlot.Plot.AddSignal(cTempCopy, label: "C로 온도");
 
-            dataFirstDay = new DateTime(2021, 1, 8);
+            double[] xPositions = { 3, 17, 33, 47 };
+            string[] xLabels = { "1시간전", "40분전", "20분전", "현재" };
+            
+            wpfPlot.Plot.XAxis.ManualTickPositions(xPositions, xLabels);
 
-            athermalFurnace.OffsetX = bthermalFurnace.OffsetX = cthermalFurnace.OffsetX = dataFirstDay.ToOADate();
-            wpfPlot.Plot.XAxis.TickLabelFormat("MM-dd HH:mm", dateTimeFormat: true);
+            wpfPlot.Plot.Style(style: Style.Gray2);
+            wpfPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
 
             wpfPlot.Plot.Title("보온로 온도 그래프");
-            wpfPlot.Plot.XLabel("날짜");
+            //wpfPlot.Plot.XLabel("시간");
             wpfPlot.Plot.YLabel("보온로 온도");
 
             var legend = wpfPlot.Plot.Legend();
@@ -113,16 +125,9 @@ namespace Desummer.Scripts
         /// </summary>
         void SetYAxisMax()
         {
-            double[] tempMaxValues = { aTempCopy.Max(), bTempCopy.Max(), cTempCopy.Max() };
-            double[] tempMinValues = { aTempCopy.Min(), bTempCopy.Min(), cTempCopy.Min() };
-
-            // Y축의 max, min값을 설정해주기 위해 전체 max, min값을 체크한다
-            totalMax = (int)tempMaxValues.Max() + 20;
-            totalMin = (int)tempMinValues.Min() > 0 ? (int)tempMinValues.Min() : 0;
-
             wpfPlot.Plot.SetAxisLimits(yMin: totalMin, yMax: totalMax);
-            //wpfPlot.Plot.XAxis.SetBoundary(0, 50);
-            //wpfPlot.Plot.YAxis.SetBoundary(totalMin, totalMax);
+            wpfPlot.Plot.XAxis.SetBoundary(0, 50);
+            wpfPlot.Plot.YAxis.SetBoundary(totalMin, totalMax);
         }
 
         /// <summary>
@@ -134,7 +139,7 @@ namespace Desummer.Scripts
             _updateDataTimer = new Timer(_ => UpdateData(), null, 0, liveUpdateMilliseconds);
 
             _renderTimer = new DispatcherTimer();
-            _renderTimer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds);
+            _renderTimer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds + 50);
             _renderTimer.Tick += Render;
             _renderTimer.Start();
         }
@@ -158,36 +163,12 @@ namespace Desummer.Scripts
             Array.Copy(bTempArr, currentIndex, bTempCopy, 0, bTempCopy.Length - 1);
             Array.Copy(cTempArr, currentIndex, cTempCopy, 0, cTempCopy.Length - 1);
 
-            aTempCopy[aTempCopy.Length - 1] = aTempArr[currentIndex];
-            bTempCopy[bTempCopy.Length - 1] = bTempArr[currentIndex];
-            cTempCopy[cTempCopy.Length - 1] = cTempArr[currentIndex];
+            aTempCopy[aTempCopy.Length - 1] = aTempArr[currentIndex + copyDataAmount];
+            bTempCopy[bTempCopy.Length - 1] = bTempArr[currentIndex + copyDataAmount];
+            cTempCopy[cTempCopy.Length - 1] = cTempArr[currentIndex + copyDataAmount];
 
-
-            // x축값 갱신을 위해서 그래프를 아예 지우고
-            wpfPlot.Plot.Clear();
-            wpfPlot.Plot.Style(style: ScottPlot.Style.Gray2);
-            wpfPlot.Plot.Style(figureBackground: System.Drawing.Color.Transparent);
-
-            // 새로 그려서
-            athermalFurnace = wpfPlot.Plot.AddSignal(aTempCopy, sampleRate: dayRate, label: "A로 온도");
-            bthermalFurnace = wpfPlot.Plot.AddSignal(bTempCopy, sampleRate: dayRate, label: "B로 온도");
-            cthermalFurnace = wpfPlot.Plot.AddSignal(cTempCopy, sampleRate: dayRate, label: "C로 온도");
-            athermalFurnace.OffsetX = bthermalFurnace.OffsetX = cthermalFurnace.OffsetX = dataFirstDay.ToOADate();
-            wpfPlot.Plot.XAxis.TickLabelFormat("MM-dd\nHH:mm", dateTimeFormat: true);
-            wpfPlot.Plot.XAxis.ManualTickSpacing(5, ScottPlot.Ticks.DateTimeUnit.Minute);
-            SetYAxisMax();
-
-            currentIndex++;
             dataFirstDay = dataFirstDay.AddMinutes(5);
-
-            athermalFurnace.IsVisible = aPlotVisible;
-            bthermalFurnace.IsVisible = bPlotVisible;
-            cthermalFurnace.IsVisible = cPlotVisible;
-
-            crosshair = wpfPlot.Plot.AddCrosshair(0, 0);
-
-            // 렌더한다
-            wpfPlot.Plot.Render();
+            currentIndex++;
         }
 
         void Render(object sender, EventArgs e)
@@ -195,7 +176,15 @@ namespace Desummer.Scripts
             if (pauseGraph)
                 return;
 
-            wpfPlot.Refresh();
+            lock (plotLockOjbect)
+            {
+                Debug.WriteLine($"Signal차트 업데이트 중!({plotUpdate})");
+
+                dateText.Text = dataFirstDay.ToString("MM-dd\nHH:mm");
+                wpfPlot.Refresh();
+
+                plotUpdate++;
+            }
         }
 
         /// <summary>
@@ -221,19 +210,15 @@ namespace Desummer.Scripts
             {
                 case 1:
                     signalPlot = athermalFurnace;
-                    aPlotVisible = visible;
                     break;
                 case 2:
                     signalPlot = bthermalFurnace;
-                    bPlotVisible = visible;
                     break;
                 case 3:
                     signalPlot = cthermalFurnace;
-                    cPlotVisible = visible;
                     break;
                 default:
                     signalPlot = athermalFurnace;
-                    aPlotVisible = visible;
                     break;
             }
 

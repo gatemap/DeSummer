@@ -30,7 +30,8 @@
             <Grid Grid.Column="1">
                 <Rectangle RadiusX="15" RadiusY="10" Fill="#FF1E1D26" Margin="10,10,10,10">
                 </Rectangle>
-                <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove" Margin="10,10,10,10"/>
+                <ScottPlot:WpfPlot x:Name="temperaturePlot" MouseEnter="OnMouseEnter" MouseLeave="OnMouseLeave" MouseMove="OnMouseMove" Margin="10,10,30,10"/>
+                <TextBlock x:Name="currentDate" HorizontalAlignment="Right" Margin="0,0,30,15" TextWrapping="Wrap" Text="100" VerticalAlignment="Bottom" FontSize="16" Foreground="White"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">

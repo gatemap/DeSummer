@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Desummer.Scripts;
+using System.Windows.Controls;
 
 namespace Desummer.Views.Pages
 {
@@ -7,16 +8,16 @@ namespace Desummer.Views.Pages
     /// </summary>
     public partial class PLC : Page
     {
-        static bool initialize = false;
-
         public PLC()
         {
-            if (initialize)
-                return;
-
             InitializeComponent();
+            
+            Container.main.plcControl = new PLCControl(failureIndicationText, reconnectButton);
+        }
 
-            initialize = true;
+        private void ButtonClick_Reconnect(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Container.main.plotControl.SendCurrentData();
         }
     }
 }

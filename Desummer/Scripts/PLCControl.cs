@@ -14,6 +14,7 @@ namespace Desummer.Scripts
 
         bool connecting = false;
 
+        static object textEnabledLock = new object();
         readonly string plcIPAdress = "192.168.1.33:2004";
 
         public PLCControl(TextBlock textBlock, Button button) 
@@ -39,6 +40,8 @@ namespace Desummer.Scripts
                 connecting = false;
                 return;
             }
+
+            Monitor.Enter(textEnabledLock);
 
             ActiveTextBlock("", false);
             connecting = true;
@@ -71,6 +74,7 @@ namespace Desummer.Scripts
             {
                 ActiveTextBlock("전송 실패!", true);
                 DisconnectPLC(oCommDriver);
+                Monitor.Exit(textEnabledLock);
                 return;
             }
 
@@ -88,12 +92,14 @@ namespace Desummer.Scripts
             }
 
             DisconnectPLC(oCommDriver);
+
+            Monitor.Exit(textEnabledLock);
         }
 
         void ActiveTextBlock(string text, bool enabled)
         {
             failureIndication.Text = text;
-            reconnectButton.IsEnabled = enabled;
+            reconnectButton.IsEnabled = enabled;   
         }
 
         byte WriteDataInPLC(DeviceInfo oDevice, int offset, bool normal)

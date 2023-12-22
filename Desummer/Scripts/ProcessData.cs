@@ -5,10 +5,9 @@ namespace Desummer.Scripts
     {
         string data = string.Empty;
         List<TemperatureData> Week_Data = new List<TemperatureData>();
-        public ProcessData()
-        {
 
-        }
+        public ProcessData() { }
+
         /// <returns>모든 데이터를 반환</returns>
         public List<TemperatureData> TemperatureTotalData()
         {
@@ -37,8 +36,8 @@ namespace Desummer.Scripts
             }
 
             return dataList;
-
         }
+
         public List<TemperatureData> SplitDataMonthly(string month, string week)
         {
             data = dataResource.termalFurnace;
@@ -51,9 +50,11 @@ namespace Desummer.Scripts
                     firstLine = false;
                     continue;
                 }
+
                 // 공백이 들어오면, 해당 라인을 넘긴다
                 if (string.IsNullOrEmpty(row))
                     continue;
+
                 var columns = row.Split(',');
 
                 //시간 년,월,일,시,분 으로 쪼개기
@@ -102,12 +103,12 @@ namespace Desummer.Scripts
                 if (date.Month == Selected_month)
                 {
                     if (date.Day <= Selected_week && date.Day > Selected_week - 7)
-                    {
                         Week_Data.Add(new TemperatureData(columns[0], int.Parse(columns[1]), int.Parse(columns[2]), int.Parse(columns[3])));
-                    }
                 }
             }
+
             return Week_Data;
         }
+
     }
 }

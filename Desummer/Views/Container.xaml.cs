@@ -11,20 +11,18 @@ namespace Desummer.Views
     /// <summary>
     /// Interaction logic for Container.xaml
     /// </summary>
-    public partial class Container : INavigationWindow
+    public partial class Container : Window, INavigationWindow
     {
         public static Container main;
         public PLCControl plcControl;
-        
+        public PlotControl plotControl;
+
         public Container()
         {
             InitializeComponent();
 
             if(main == null)
                 main = this;
-
-            PLC plc = new PLC();
-            plcControl = new PLCControl(plc.failureIndicationText, plc.reconnectButton);
         }
 
         #region INavigation interface Method

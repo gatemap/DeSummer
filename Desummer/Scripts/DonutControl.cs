@@ -1,15 +1,18 @@
-﻿using ScottPlot;
-using ScottPlot.Plottable;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 using System.Windows.Controls;
-using Desummer.Views.Pages;
 using System.Windows.Media;
 using Color = System.Drawing.Color;
+
+using ScottPlot;
+using ScottPlot.Plottable;
+
 using Desummer.Views;
+using Desummer.Views.Pages;
+using System.Diagnostics;
 
 namespace Desummer.Scripts
 {
-    partial class PlotControl
+    public partial class PlotControl
     {
         WpfPlot temperatureDonut1;
         WpfPlot temperatureDonut2;
@@ -20,17 +23,21 @@ namespace Desummer.Scripts
         List<TemperatureData> datas = new List<TemperatureData>();
 
         private DispatcherTimer timer; // DispatcherTimer를 클래스 변수로 선언
-        private int index = 50;
+        private int index = 49;
 
+        // A,B,C 보온로 이전, 현재 정상체크
         bool prevATempNormal, currATempNormal = false;
         bool prevBTempNormal, currBTempNormal = false;
         bool prevCTempNormal, currCTempNormal = false;
+
+        static object donutLockOjbect = new object();
 
         Graph graph;
         MediaPlayer MP3 = new MediaPlayer();
         Uri uri = new Uri("C:\\Users\\o\\Downloads\\DeSummer\\Desummer\\Resources\\alarm.mp3");
 
-        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas, TextBlock donut1Value, TextBlock donut2Value, TextBlock donut3Value, Graph graph)
+        public PlotControl(WpfPlot temperatureDonut1, WpfPlot temperatureDonut2, WpfPlot temperatureDonut3, List<TemperatureData> datas,
+            TextBlock donut1Value, TextBlock donut2Value, TextBlock donut3Value, Graph graph)
         {
             this.temperatureDonut1 = temperatureDonut1;
             this.temperatureDonut2 = temperatureDonut2;
@@ -40,14 +47,21 @@ namespace Desummer.Scripts
             this.donut2Value = donut2Value;
             this.donut3Value = donut3Value;
             this.graph = graph;
+
             DonutLiveStart();
         }
 
         void DonutLiveStart()
         {
+            SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
+            SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
+            SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
+
+            index++;
+
             // DispatcherTimer 초기화
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds); // 500밀리세컨드
+            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds + 50); // 500밀리세컨드
             timer.Tick += UpdateDonutCharts; // UpdateCharts 메서드 호출
             timer.Start(); // 타이머 시작
         }
@@ -60,11 +74,19 @@ namespace Desummer.Scripts
 
             if (index < datas.Count) // 아직 List의 끝에 도달하지 않았으면
             {
-                SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
-                SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
-                SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
+                lock (donutLockOjbect)
+                {
+                    Debug.WriteLine($"도넛차트 업데이트 중! ({donutUpdate})");
 
-                index++;
+                    SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
+                    SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
+                    SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
+
+                    SendCurrentData();
+
+                    index++;
+                    donutUpdate++;
+                }
             }
             else // 파일 끝인 경우
             {
@@ -119,26 +141,6 @@ namespace Desummer.Scripts
                 graph.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 0, 0));
             }
 
-            #region PLC - PC 통신해서 데이터 쓰기
-
-            // 현재 정상동작인지 체크
-            currATempNormal = data.A_temp >= 680 && data.A_temp <= 750;
-            currBTempNormal = data.B_temp >= 680 && data.B_temp <= 750;
-            currCTempNormal = data.C_temp >= 680 && data.C_temp <= 750;
-
-            // 이전 값과 비교해서 다르면 통신한다
-            if (currATempNormal != prevATempNormal || currBTempNormal != prevBTempNormal || currCTempNormal != prevCTempNormal)
-            {
-                Container.main.plcControl.ConnectToPLC();
-                Container.main.plcControl.SendData(currATempNormal, currBTempNormal, currCTempNormal);
-            }
-
-            prevATempNormal = currATempNormal;
-            prevBTempNormal = currBTempNormal;
-            prevCTempNormal = currCTempNormal;
-
-            #endregion
-
             gauges.GaugeMode = RadialGaugeMode.SingleGauge;
             gauges.MaximumAngle = 360;
             gauges.StartingAngle = 180;
@@ -148,6 +150,33 @@ namespace Desummer.Scripts
             gauges.Colors = new Color[] { Color.FromArgb(255, 85, 156, 228), Color.FromArgb(255, 50, 50, 50) }; // {1번 value 색상, 2번 value 색상} (투명도, R, G, B)
             
             donutControl.Refresh(); // wpfPlot1 갱신
+        }
+
+        public void SendCurrentData()
+        {
+            TemperatureData data = datas[index];
+
+            // 현재 정상동작인지 체크
+            currATempNormal = data.A_temp >= 680;
+            currBTempNormal = data.B_temp >= 680;
+            currCTempNormal = data.C_temp >= 680;
+
+            //currATempNormal = data.A_temp >= 680 && data.A_temp <= 750;
+            //currBTempNormal = data.B_temp >= 680 && data.B_temp <= 750;
+            //currCTempNormal = data.C_temp >= 680 && data.C_temp <= 750;
+
+            // 이전 값과 비교해서 다르면 통신한다
+            if (currATempNormal != prevATempNormal || currBTempNormal != prevBTempNormal || currCTempNormal != prevCTempNormal)
+            {
+                Debug.WriteLine("진짜 PLC 통신함!");
+
+                Container.main.plcControl.ConnectToPLC();
+                Container.main.plcControl.SendData(currATempNormal, currBTempNormal, currCTempNormal);
+            }
+
+            prevATempNormal = currATempNormal;
+            prevBTempNormal = currBTempNormal;
+            prevCTempNormal = currCTempNormal;
         }
     }
 }
