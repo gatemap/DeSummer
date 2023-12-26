@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("CodingOn Project in Desummer")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbe57bef69ba27667f6dd0fd02d33f8846498183")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb44fdeaf2b131ae6e32d264904c303485e80acf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Desummer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Desummer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

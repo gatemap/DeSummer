@@ -19,9 +19,6 @@
     <Compile Update="Views\Pages\Home.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\PLC.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Container.xaml">
@@ -34,9 +31,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Home.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\Pages\PLC.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

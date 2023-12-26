@@ -84,7 +84,6 @@ namespace Desummer.Scripts
                     SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
                     SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
 
-                    
                     SendCurrentData();
 
                     index++;
@@ -156,7 +155,10 @@ namespace Desummer.Scripts
             donutControl.Refresh(); // wpfPlot1 갱신
         }
 
-        public void SendCurrentData()
+        /// <summary>
+        /// 현재 데이터 PLC로 전송하기
+        /// </summary>
+        void SendCurrentData()
         {
             TemperatureData data = datas[index];
 

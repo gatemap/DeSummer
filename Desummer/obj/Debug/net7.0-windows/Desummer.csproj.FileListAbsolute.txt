@@ -34,7 +34,6 @@ C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\DataGrid.g.cs
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\Graph.g.cs
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\Home.g.cs
-C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\PLC.g.cs
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Desummer_Content.g.cs
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
@@ -45,7 +44,6 @@ C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\DataGrid.baml
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\Graph.baml
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\Home.baml
-C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Views\Pages\PLC.baml
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Desummer.g.resources
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Desummer.dataResource.resources
 C:\Users\space\Desktop\MyRepo\TeamProjectGit\DeSummer\Desummer\obj\Debug\net7.0-windows\Desummer.csproj.GenerateResource.cache

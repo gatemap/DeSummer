@@ -38,6 +38,7 @@ namespace Desummer.Scripts
         /// <param name="cTempNormal">C보온로 정상, 비정상 체크</param>
         public void SendData(bool aTempNormal, bool bTempNormal, bool cTempNormal)
         {
+            // 연결 실패시 아무 작동하지 않음
             if (!ConnectToPLC())
                 return;
 
@@ -84,7 +85,7 @@ namespace Desummer.Scripts
         /// </summary>
         /// <param name="oDevice"></param>
         /// <param name="offset"></param>
-        /// <param name="normal"></param>
+        /// <param name="normal">정상, 비정상</param>
         /// <returns></returns>
         byte WriteDataInPLC(DeviceInfo oDevice, int offset, bool normal)
         {
