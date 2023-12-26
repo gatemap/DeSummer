@@ -6,7 +6,6 @@ using Color = System.Drawing.Color;
 using ScottPlot;
 using ScottPlot.Plottable;
 
-using Desummer.Views;
 using Desummer.Views.Pages;
 using System.Diagnostics;
 
@@ -33,6 +32,7 @@ namespace Desummer.Scripts
         static object donutLockOjbect = new object();
 
         Graph graph;
+        PLCControl plcControl;
         MediaPlayer MP3 = new MediaPlayer();
         Uri uri = new Uri("C:\\Users\\o\\Downloads\\DeSummer\\Desummer\\Resources\\alarm.mp3");
 
@@ -48,6 +48,8 @@ namespace Desummer.Scripts
             this.donut3Value = donut3Value;
             this.graph = graph;
 
+            plcControl = new PLCControl();
+
             DonutLiveStart();
         }
 
@@ -61,7 +63,7 @@ namespace Desummer.Scripts
 
             // DispatcherTimer 초기화
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds + 50); // 500밀리세컨드
+            timer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds); // 500밀리세컨드
             timer.Tick += UpdateDonutCharts; // UpdateCharts 메서드 호출
             timer.Start(); // 타이머 시작
         }
@@ -82,6 +84,7 @@ namespace Desummer.Scripts
                     SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
                     SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
 
+                    
                     SendCurrentData();
 
                     index++;
@@ -130,6 +133,7 @@ namespace Desummer.Scripts
                 donut3Value.Text = $"{data.C_temp}℃"; // 현재 온도를 표시할 TextBlock
             }
 
+            // 정상 온도가 아닐 때, 페이지를 붉은색으로 바꿔주고, 소리를 재생시킨다
             if (data.A_temp < 680 || data.A_temp > 750 || data.B_temp < 680 || data.B_temp > 750 || data.C_temp < 680 || data.C_temp > 750)
             {
                 graph.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 180, 0, 0));
@@ -167,12 +171,7 @@ namespace Desummer.Scripts
 
             // 이전 값과 비교해서 다르면 통신한다
             if (currATempNormal != prevATempNormal || currBTempNormal != prevBTempNormal || currCTempNormal != prevCTempNormal)
-            {
-                Debug.WriteLine("진짜 PLC 통신함!");
-
-                Container.main.plcControl.ConnectToPLC();
-                Container.main.plcControl.SendData(currATempNormal, currBTempNormal, currCTempNormal);
-            }
+                plcControl.SendData(currATempNormal, currBTempNormal, currCTempNormal);
 
             prevATempNormal = currATempNormal;
             prevBTempNormal = currBTempNormal;

@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
 
 using XGCommLib;
 
@@ -9,42 +9,25 @@ namespace Desummer.Scripts
         CommObjectFactory20 factory;
         CommObject20 oCommDriver;
 
-        TextBlock failureIndication;
-        Button reconnectButton;
-
-        bool connecting = false;
-
-        static object textEnabledLock = new object();
         readonly string plcIPAdress = "192.168.1.33:2004";
 
-        public PLCControl(TextBlock textBlock, Button button) 
+        public PLCControl()
         { 
+            // plc 연결 설정
             factory = new CommObjectFactory20();
             oCommDriver = factory.GetMLDPCommObject20(plcIPAdress);
-
-            failureIndication = textBlock;
-            reconnectButton = button;
-
-            ActiveTextBlock("", false);
         }
 
         /// <summary>
         /// PLC - PC 연결
         /// </summary>
-        public void ConnectToPLC()
+        bool ConnectToPLC()
         {
             // 연결 실패시, 텍스트를 출력해주고 재통신 버튼을 활성화해줌
             if (oCommDriver.Connect("") == 0)
-            {
-                ActiveTextBlock("통신 실패!", true);
-                connecting = false;
-                return;
-            }
+                return false;
 
-            Monitor.Enter(textEnabledLock);
-
-            ActiveTextBlock("", false);
-            connecting = true;
+            return true;
         }
 
         /// <summary>
@@ -55,11 +38,11 @@ namespace Desummer.Scripts
         /// <param name="cTempNormal">C보온로 정상, 비정상 체크</param>
         public void SendData(bool aTempNormal, bool bTempNormal, bool cTempNormal)
         {
-            if (!connecting)
+            if (!ConnectToPLC())
                 return;
 
+            // 최대 6개의 데이터만 보낼 것이기 때문에 6으로 설정
             byte[] bufWrite = new byte[6];
-
             DeviceInfo oDevice = factory.CreateDevice();
             
             bufWrite[0] = WriteDataInPLC(oDevice, 0, aTempNormal);
@@ -72,9 +55,8 @@ namespace Desummer.Scripts
             // 데이터 쓰기에 실패하면 연결도 끊음
             if (oCommDriver.WriteRandomDevice(bufWrite) != 1)
             {
-                ActiveTextBlock("전송 실패!", true);
                 DisconnectPLC(oCommDriver);
-                Monitor.Exit(textEnabledLock);
+                Debug.WriteLine("데이터 작성 실패");
                 return;
             }
 
@@ -82,26 +64,28 @@ namespace Desummer.Scripts
 
             // 제대로 전송이되고 plc와 데이터가 동일한지 체크
             if (oCommDriver.ReadRandomDevice(bufRead) != 1)
-                ActiveTextBlock("읽기 실패!", true);
+            {
+                DisconnectPLC(oCommDriver);
+                Debug.WriteLine("데이터 읽기 실패");
+                return;
+            }
             else
             {
-                if (bufWrite.SequenceEqual(bufRead))
-                    ActiveTextBlock("", false);
-                else
-                    ActiveTextBlock("데이터 불일치!", true);
+                if (!bufWrite.SequenceEqual(bufRead))
+                    Debug.WriteLine("데이터 불일치");
+                
+                DisconnectPLC(oCommDriver);
             }
-
-            DisconnectPLC(oCommDriver);
-
-            Monitor.Exit(textEnabledLock);
         }
 
-        void ActiveTextBlock(string text, bool enabled)
-        {
-            failureIndication.Text = text;
-            reconnectButton.IsEnabled = enabled;   
-        }
 
+        /// <summary>
+        /// PLC의 내부 메모리에 %MX로 보낼 데이터 작성
+        /// </summary>
+        /// <param name="oDevice"></param>
+        /// <param name="offset"></param>
+        /// <param name="normal"></param>
+        /// <returns></returns>
         byte WriteDataInPLC(DeviceInfo oDevice, int offset, bool normal)
         {
             oDevice.ucDataType = (byte)'X';
@@ -113,16 +97,25 @@ namespace Desummer.Scripts
             return normal ? (byte)1 : (byte)0;
         }
 
+        /// <summary>
+        /// PLC-PC 통신 종료
+        /// </summary>
+        /// <param name="oCommDriver"></param>
         void DisconnectPLC(CommObject20 oCommDriver)
         {
             int nRetn = oCommDriver.Disconnect();
 
             if (nRetn == 1)
-                ActiveTextBlock("", false);
+                Debug.WriteLine("연결 정상 종료");
             else
             {
-                while(nRetn != 1)
+                while (nRetn != 1)
+                {
+                    Debug.WriteLine("연결 종료 실패! 재시도");
                     nRetn = oCommDriver.Disconnect();
+                }
+
+                Debug.WriteLine("연결 정상 종료");
             }
         }
     }
