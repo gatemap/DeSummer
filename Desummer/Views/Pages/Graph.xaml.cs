@@ -19,12 +19,9 @@ namespace Desummer.Views.Pages
             InitializeComponent();
 
             temperatrueProcessData = new ProcessData();
-            PLC plc = new PLC();
 
             plotControl = new PlotControl(temperaturePlot, temperatrueProcessData.TemperatureTotalData(), currentDate);
             donutControl = new PlotControl(temperatureDonut1, temperatureDonut2, temperatureDonut3, temperatrueProcessData.TemperatureTotalData(), Donut1Value, Donut2Value, Donut3Value, this);
-
-            Container.main.plotControl = donutControl;
         }
 
         private void ShowAthermalFurnace(object sender, RoutedEventArgs e)

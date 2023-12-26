@@ -1,5 +1,4 @@
-﻿using Desummer.Scripts;
-using Desummer.Views.Pages;
+﻿using Desummer.Views.Pages;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,16 +12,10 @@ namespace Desummer.Views
     /// </summary>
     public partial class Container : Window, INavigationWindow
     {
-        public static Container main;
-        public PLCControl plcControl;
-        public PlotControl plotControl;
 
         public Container()
         {
             InitializeComponent();
-
-            if(main == null)
-                main = this;
         }
 
         #region INavigation interface Method

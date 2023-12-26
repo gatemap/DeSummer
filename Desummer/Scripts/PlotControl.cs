@@ -30,7 +30,7 @@ namespace Desummer.Scripts
 
         readonly int totalMax = 760, totalMin = 660;
         readonly int copyDataAmount = 50;
-        readonly int liveUpdateMilliseconds = 500;
+        readonly int liveUpdateMilliseconds = 2000;
 
         public PlotControl(WpfPlot wpfPlot, List<TemperatureData> datas, TextBlock textBlock)
         {
@@ -136,10 +136,10 @@ namespace Desummer.Scripts
         public void Start() 
         { 
             // period가 500이므로 500밀리세컨드 마다 UpdateData()를 호출
-            _updateDataTimer = new Timer(_ => UpdateData(), null, 0, liveUpdateMilliseconds);
+            //_updateDataTimer = new Timer(_ => UpdateData(), null, 0, liveUpdateMilliseconds);
 
             _renderTimer = new DispatcherTimer();
-            _renderTimer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds + 50);
+            _renderTimer.Interval = TimeSpan.FromMilliseconds(liveUpdateMilliseconds);
             _renderTimer.Tick += Render;
             _renderTimer.Start();
         }
@@ -175,6 +175,8 @@ namespace Desummer.Scripts
         {
             if (pauseGraph)
                 return;
+
+            UpdateData();
 
             lock (plotLockOjbect)
             {
