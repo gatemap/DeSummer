@@ -23,7 +23,7 @@ namespace Desummer.Scripts
         /// </summary>
         bool ConnectToPLC()
         {
-            // 연결 실패시, 텍스트를 출력해주고 재통신 버튼을 활성화해줌
+            // 연결 실패시, false return을 해준다
             if (oCommDriver.Connect("") == 0)
                 return false;
 
@@ -56,8 +56,8 @@ namespace Desummer.Scripts
             // 데이터 쓰기에 실패하면 연결도 끊음
             if (oCommDriver.WriteRandomDevice(bufWrite) != 1)
             {
-                DisconnectPLC(oCommDriver);
                 Debug.WriteLine("데이터 작성 실패");
+                DisconnectPLC(oCommDriver);
                 return;
             }
 
@@ -66,8 +66,8 @@ namespace Desummer.Scripts
             // 제대로 전송이되고 plc와 데이터가 동일한지 체크
             if (oCommDriver.ReadRandomDevice(bufRead) != 1)
             {
-                DisconnectPLC(oCommDriver);
                 Debug.WriteLine("데이터 읽기 실패");
+                DisconnectPLC(oCommDriver);
                 return;
             }
             else
