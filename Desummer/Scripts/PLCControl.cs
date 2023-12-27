@@ -23,6 +23,8 @@ namespace Desummer.Scripts
         /// </summary>
         bool ConnectToPLC()
         {
+            oCommDriver.RemoveAll();
+
             // 연결 실패시, false return을 해준다
             if (oCommDriver.Connect("") == 0)
                 return false;
