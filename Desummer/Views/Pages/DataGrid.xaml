@@ -6,45 +6,45 @@
       xmlns:local="clr-namespace:Desummer.Views.Pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="850"
+      d:DesignHeight="500" d:DesignWidth="850"
       FontFamily="/DeSummer;components/Resources/#AppleSDGothicNeoM00"
       Title="DataGrid">
     <StackPanel>
         <TextBlock Text="DataGrid"
                Foreground="White"
-               FontSize="28"
+               FontSize="40"
                HorizontalAlignment="Left"
-               Margin="0,0,0,20"/>
+               Margin="0,0,0,20" FontWeight="Bold"/>
 
         <StackPanel Orientation="Horizontal">
             <Border Width="850"
                 Height="190"
                 CornerRadius="20">
-    <Grid>
+                <Grid>
                     <ComboBox x:Name="ComboBox_SelectMonth" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
-                <ComboBoxItem Content="--전체--"/>
-                <ComboBoxItem Content="21년 1월"/>
-                <ComboBoxItem Content="21년 2월"/>
-                <ComboBoxItem Content="21년 3월"/>
-                <ComboBoxItem Content="21년 4월"/>
-            </ComboBox>
+                        <ComboBoxItem Content="--전체--"/>
+                        <ComboBoxItem Content="21년 1월"/>
+                        <ComboBoxItem Content="21년 2월"/>
+                        <ComboBoxItem Content="21년 3월"/>
+                        <ComboBoxItem Content="21년 4월"/>
+                    </ComboBox>
                     <Button x:Name="Button_ShowData" Content="보기" HorizontalAlignment="Left" Margin="220,0,0,0" VerticalAlignment="Top" Height="36.62" Width="60" Padding="5,3,5,5" Click="Button_ShowData_Click"/>
                     <DataGrid x:Name="DataGrid_TempData" Margin="0,55,0,0" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="20" BorderThickness="1,1,1,1" HorizontalGridLinesBrush="White">
-                <DataGrid.Columns>
+                        <DataGrid.Columns>
                             <DataGridTextColumn Header="보온로" Binding="{Binding Path=Way}" Width="195"/>
                             <DataGridTextColumn Header="최솟값" Binding="{Binding Path=MinValue}" Width="195"/>
                             <DataGridTextColumn Header="최댓값" Binding="{Binding Path=MaxValue}" Width="195"/>
                             <DataGridTextColumn Header="평균" Binding="{Binding Path=AverageValue}" Width="195"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <ComboBox x:Name="ComboBox_SelectWeek" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
-                <ComboBoxItem Content="--전체--"/>
-                <ComboBoxItem Content="1주차"/>
-                <ComboBoxItem Content="2주차"/>
-                <ComboBoxItem Content="3주차"/>
-                <ComboBoxItem Content="4주차"/>
-            </ComboBox>
-        </Grid>
+                        <ComboBoxItem Content="--전체--"/>
+                        <ComboBoxItem Content="1주차"/>
+                        <ComboBoxItem Content="2주차"/>
+                        <ComboBoxItem Content="3주차"/>
+                        <ComboBoxItem Content="4주차"/>
+                    </ComboBox>
+                </Grid>
             </Border>
         </StackPanel>
 
@@ -72,11 +72,10 @@
                         <Grid Grid.Column="2">
                             <ui:ProgressRing x:Name="ProgressRing_Ctemp" Width="125" Height="125" IsIndeterminate="False"/>
                             <TextBlock x:Name="TextBlock_Ctemp" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Grid>
-    </Grid>
+                        </Grid>
+                    </Grid>
                 </GroupBox>
             </Border>
         </StackPanel>
-
     </StackPanel>
 </Page>

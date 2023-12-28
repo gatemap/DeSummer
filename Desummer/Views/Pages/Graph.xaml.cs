@@ -48,6 +48,7 @@ namespace Desummer.Views.Pages
             plotControl.ShowCrosshairData();
         }
 
+        /*
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             plotControl.PauseGraph();
@@ -58,6 +59,7 @@ namespace Desummer.Views.Pages
             else
                 pauseButton.Content = "일시정지";
         }
+        */
 
         private void ToggleAthermalFurnace(object sender, RoutedEventArgs e)
         {
