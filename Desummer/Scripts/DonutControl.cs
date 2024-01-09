@@ -78,8 +78,6 @@ namespace Desummer.Scripts
             {
                 lock (donutLockOjbect)
                 {
-                    Debug.WriteLine($"도넛차트 업데이트 중! ({donutUpdate})");
-
                     SettingDonut(temperatureDonut1.Plot, temperatureDonut1, "A");
                     SettingDonut(temperatureDonut2.Plot, temperatureDonut2, "B");
                     SettingDonut(temperatureDonut3.Plot, temperatureDonut3, "C");
@@ -87,7 +85,6 @@ namespace Desummer.Scripts
                     SendCurrentData();
 
                     index++;
-                    donutUpdate++;
                 }
             }
             else // 파일 끝인 경우

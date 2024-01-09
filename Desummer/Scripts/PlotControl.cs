@@ -21,7 +21,7 @@ namespace Desummer.Scripts
         DateTime dataFirstDay;
 
         int currentIndex = 0;
-        int donutUpdate = 1, plotUpdate = 1;
+
         public bool pauseGraph { get; private set; } = false;
 
         Crosshair crosshair;
@@ -180,12 +180,8 @@ namespace Desummer.Scripts
 
             lock (plotLockOjbect)
             {
-                Debug.WriteLine($"Signal차트 업데이트 중!({plotUpdate})");
-
                 dateText.Text = dataFirstDay.ToString("MM-dd\nHH:mm");
                 wpfPlot.Refresh();
-
-                plotUpdate++;
             }
         }
 
