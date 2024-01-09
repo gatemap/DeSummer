@@ -44,9 +44,33 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "dependencies": {
+            "OpenCvSharp4": {
+              "target": "Package",
+              "version": "[4.9.0.20240103, )"
+            },
+            "OpenCvSharp4.Extensions": {
+              "target": "Package",
+              "version": "[4.9.0.20240103, )"
+            },
+            "OpenCvSharp4.WpfExtensions": {
+              "target": "Package",
+              "version": "[4.9.0.20240103, )"
+            },
+            "OpenCvSharp4.runtime.win": {
+              "target": "Package",
+              "version": "[4.9.0.20240103, )"
+            },
             "ScottPlot.WPF": {
               "target": "Package",
-              "version": "[4.1.68, )"
+              "version": "[4.1.70, )"
+            },
+            "Tesseract": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
+            "Tesseract.Drawing": {
+              "target": "Package",
+              "version": "[5.2.0, )"
             },
             "WPF-UI": {
               "target": "Package",
