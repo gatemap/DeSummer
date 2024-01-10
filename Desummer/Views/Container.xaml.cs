@@ -4,6 +4,7 @@ using System.Windows.Controls;
 
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Controls.Interfaces;
+using System.Diagnostics;
 
 namespace Desummer.Views
 {
@@ -16,6 +17,13 @@ namespace Desummer.Views
         public Container()
         {
             InitializeComponent();
+
+            Debug.WriteLine($"로그인 정보 : \n사용자 이름 : {App.main.userData.userName}, 사용자 아이디 : {App.main.userData.userId}, 관리자인가요? {App.main.userData.admin}");
+
+            // 관리자가 아니면 숨긴다
+            if(!App.main.userData.admin)
+                userResister.Visibility = Visibility.Hidden;
+
         }
 
         #region INavigation interface Method

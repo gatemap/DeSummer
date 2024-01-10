@@ -1,0 +1,36 @@
+﻿<Page x:Class="Desummer.Views.Pages.UserRegister"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Desummer.Views.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      FontFamily="/DeSummer;components/Resources/#AppleSDGothicNeoM00"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserRegister">
+    <Grid>
+        <TextBlock Text="User Register" Foreground="White"
+           FontSize="40" HorizontalAlignment="Left" FontWeight="Bold"/>
+        <StackPanel Margin="80,110,80,0">
+            <Grid Margin="0,0,0,25">
+                <TextBlock TextWrapping="Wrap" Text="이름 : " Foreground="White" FontWeight="SemiBold" FontSize="20" Margin="0,5,0,0"/>
+                <ui:TextBox x:Name="name" Margin="80,0,350,0" MaxLength="12"/>
+            </Grid>
+            <Grid Margin="0,0,0,25">
+                <TextBlock TextWrapping="Wrap" Text="ID : " Foreground="White" FontWeight="SemiBold" FontSize="20" Margin="20,5,0,0"/>
+                <ui:TextBox x:Name="id" Margin="80,0,160,0" MaxLength="20" ToolTip="4자 이상 입력" PreviewTextInput="Id_PreviewTextInput"/>
+                <ui:Button x:Name="duplicateCheckButton" Content="중복체크" HorizontalAlignment="Right" Margin="0,0,30,0" Click="Duplication_Check"/>
+            </Grid>
+            <Grid Margin="0,0,0,25">
+                <TextBlock TextWrapping="Wrap" Text="PW : " Foreground="White" FontWeight="SemiBold" FontSize="20" Margin="10,5,0,0"/>
+                <ui:PasswordBox x:Name="pw" Margin="80,0,30,0" MaxLength="30" ToolTip="최소 8자 이상입력"/>
+            </Grid>
+            <Grid Margin="0,0,0,35">
+                <TextBlock TextWrapping="Wrap" Text="PW확인 : " Foreground="White" FontWeight="SemiBold" FontSize="20" Margin="-30,5,0,0"/>
+                <ui:PasswordBox x:Name="pwCheck" Margin="80,0,30,0" MaxLength="30"/>
+            </Grid>
+            <ui:Button x:Name="registButton" Content="등록하기" HorizontalAlignment="Right" Margin="0,0,30,0" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using Desummer.Scripts;
 using System.Windows;
 
 namespace Desummer
@@ -9,6 +8,14 @@ namespace Desummer
     /// </summary>
     public partial class App : Application
     {
+        public static App main = null;
+        public UserData userData; 
+
+        public App()
+        {
+            if (main == null)
+                main = this;
+        }
     }
 
 }

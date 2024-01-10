@@ -29,6 +29,8 @@
                 <ui:NavigationItem Cache="True" Content="Graph" Icon="ChartMultiple20" PageTag="Graph" PageType="{x:Type pages:Graph}"/>
                 <ui:NavigationSeparator />
                 <ui:NavigationItem Content="DataGrid" Icon="Grid28" PageTag="DataGrid" PageType="{x:Type pages:DataGrid}"/>
+                <ui:NavigationSeparator />
+                <ui:NavigationItem x:Name="userResister" Content="Register" Icon="PersonAdd24" PageTag="UserRegister" PageType="{x:Type pages:UserRegister}"/>
             </ui:NavigationStore.Items>
         </ui:NavigationStore>
         <Grid Grid.Column="1">
