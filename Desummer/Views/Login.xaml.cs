@@ -16,20 +16,17 @@ namespace Desummer.Views
         // 로그인
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            if (string.IsNullOrEmpty(userId.Text) || string.IsNullOrEmpty(userPassword.Text))
+            if (string.IsNullOrEmpty(userId.Text) || string.IsNullOrEmpty(userPassword.Password))
             {
                 if (string.IsNullOrEmpty(userId.Text))
                     MessageBox.Show("아이디를 입력해주세요", "경고", MessageBoxButton.OK, MessageBoxImage.Warning);
-                else if(string.IsNullOrEmpty(userPassword.Text))
+                else if(string.IsNullOrEmpty(userPassword.Password))
                     MessageBox.Show("패스워드를 입력해주세요", "경고", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 return;
             }
-
-
             SqlControl sql = new SqlControl();
-            
+
             if(sql.Login(userId.Text, userPassword.Password))
             {
                 Container nextWindow = new Container();
@@ -41,6 +38,13 @@ namespace Desummer.Views
             {
                 MessageBox.Show("아이디 혹은 패스워드가 잘못되었습니다.", "입력 오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        // 비밀번호 재설정
+        private void Reset_Password(object sender, RoutedEventArgs e)
+        {
+            ResetPassword resetPassword = new ResetPassword();
+            resetPassword.Show();
         }
     }
 }

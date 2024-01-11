@@ -8,14 +8,7 @@ namespace Desummer
     /// </summary>
     public partial class App : Application
     {
-        public static App main = null;
-        public UserData userData; 
-
-        public App()
-        {
-            if (main == null)
-                main = this;
-        }
+        public static UserData userData = null; 
     }
 
 }
