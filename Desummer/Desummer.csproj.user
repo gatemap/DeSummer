@@ -22,7 +22,16 @@
     <Compile Update="Views\Pages\Home.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\ResetPasswordPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\SendSerialCode.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\UserRegister.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ResetPassword.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -42,7 +51,16 @@
     <Page Update="Views\Pages\Home.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\ResetPasswordPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\SendSerialCode.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\UserRegister.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ResetPassword.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

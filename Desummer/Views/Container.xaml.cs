@@ -18,10 +18,10 @@ namespace Desummer.Views
         {
             InitializeComponent();
 
-            Debug.WriteLine($"로그인 정보 : \n사용자 이름 : {App.main.userData.userName}, 사용자 아이디 : {App.main.userData.userId}, 관리자인가요? {App.main.userData.admin}");
+            Debug.WriteLine($"로그인 정보 : \n사용자 이름 : {App.userData.userName}, 사용자 아이디 : {App.userData.userId}, 관리자인가요? {App.userData.admin}");
 
             // 관리자가 아니면 숨긴다
-            if(!App.main.userData.admin)
+            if(!App.userData.admin)
                 userResister.Visibility = Visibility.Hidden;
 
         }

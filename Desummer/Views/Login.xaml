@@ -7,12 +7,11 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="DeSummer_Sign in" Height="320" Width="330"
+        Title="DeSummer_Sign in" Height="340" Width="330"
         FontFamily="/DeSummer;components/Resources/#AppleSDGothicNeoM00"
         Background="Black"
         WindowStartupLocation="CenterScreen">
     <Grid>
-
         <StackPanel Margin="0,25,0,0">
             <TextBlock TextWrapping="Wrap" Text="DeSummer" Foreground="White" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"/>
             <StackPanel Margin="0,20,0,20">
@@ -21,13 +20,20 @@
                     <ui:TextBox x:Name="userId" TextWrapping="Wrap" Text="" FontSize="14" VerticalAlignment="Center" Margin="100,0,30,0" MaxLength="20" MaxLines="1"/>
                 </Grid>
             </StackPanel>
-            <StackPanel Margin="0,0,0,50">
+            <StackPanel Margin="0,0,0,30">
                 <Grid>
                     <TextBlock x:Name="Password" TextWrapping="Wrap" Text="PW : " Foreground="White" FontSize="28" HorizontalAlignment="Left" FontWeight="SemiBold" Margin="15,0,0,0"/>
                     <ui:PasswordBox x:Name="userPassword" FontSize="14" VerticalAlignment="Top" Margin="100,0,30,0" MaxLength="20"/>
                 </Grid>
             </StackPanel>
             <ui:Button Content="Sign in" VerticalAlignment="Top" Width="250" Height="40" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" Click="Button_Click"/>
+            <Button Content="비밀번호 재설정" Click="Reset_Password" HorizontalAlignment="Center" Margin="0,13,0,0">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

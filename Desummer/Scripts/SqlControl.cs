@@ -13,29 +13,9 @@ namespace Desummer.Scripts
         string sql = string.Empty;
 
         public SqlControl() 
-        { 
+        {
             // sql 연결 세팅
             conn = new MySqlConnection(localConnect);
-
-            /*
-            conn.Open();
-
-            Debug.WriteLine("연결 성공");
-            Debug.WriteLine(conn.ConnectionString);
-
-            MySqlCommand cmd = new MySqlCommand("", conn);
-            cmd.CommandText = "SELECT * FROM sys.userdata";
-
-            MySqlDataReader reader = cmd.ExecuteReader();
-            
-            while(reader.Read())
-            {
-                Debug.WriteLine($"userIndex : {reader["userIndex"]}, userId : {reader["userId"]}, userPassword : {reader["userPassword"]}," +
-                    $" userName : {reader["userName"]}, admin : {reader["admin"]}");
-            }
-
-            reader.Close();
-            */
         }
 
         public bool Login(string id, string pw)
@@ -49,7 +29,7 @@ namespace Desummer.Scripts
                     conn.Open();
 
                 // Id는 중복이 없음
-                sql = $"SELECT * FROM sys.userdata WHERE userId='{id}' AND userPassword='{pw}'";
+                sql = $"SELECT * FROM sys.userdata WHERE userId='{id}' AND userPassword='{PasswordEncryption.SHA256Hash(pw)}'";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -58,10 +38,11 @@ namespace Desummer.Scripts
                 {
                     Debug.WriteLine($"데이터 불러오기 성공\nuserIndex : {reader["userIndex"]}, userId : {reader["userId"]}, userPassword : {reader["userPassword"]}," +
                     $" userName : {reader["userName"]}, admin : {reader["admin"]}");
+                    Debug.WriteLine($"입력된 비밀번호의 암호화 : {PasswordEncryption.SHA256Hash(pw)}");
 
-                    App.main.userData = new UserData(reader["userName"].ToString(), reader["userId"].ToString(), reader["admin"].ToString().Equals("True"));
+                    App.userData = new UserData(ColumnConverter.GetColumnString(reader, "userName"), ColumnConverter.GetColumnString(reader, "userId"), ColumnConverter.GetColumnBool(reader, "admin"));
 
-                    if (App.main.userData.userId.Equals(id) && reader["userPassword"].ToString().Equals(pw))
+                    if (App.userData.userId.Equals(id) && ColumnConverter.GetColumnString(reader, "userPassword").Equals(PasswordEncryption.SHA256Hash(pw)))
                         loginSuccess = true;
                 }
             }
@@ -81,7 +62,7 @@ namespace Desummer.Scripts
                 if (conn.State == System.Data.ConnectionState.Closed)
                     conn.Open();
 
-                sql = $"insert into sys.userdata (userId, userPassword, userName) values ('{id}', '{pw}', '{name}')";
+                sql = $"insert into sys.userdata (userId, userPassword, userName) values ('{id}', '{PasswordEncryption.SHA256Hash(pw)}', '{name}')";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                 if (cmd.ExecuteNonQuery() == 1)
@@ -102,7 +83,6 @@ namespace Desummer.Scripts
             }
             finally { conn.Close(); }
         }
-
 
         /// <summary>
         /// 아이디 중복 체크
@@ -127,6 +107,42 @@ namespace Desummer.Scripts
             finally { conn.Close(); }
 
             return duplicate;
+        }
+
+        /// <summary>
+        /// 비밀번호 변경
+        /// </summary>
+        /// <param name="id">보안코드 입력할 때, 입력했던 아이디</param>
+        /// <param name="pw">변경하려고 하는 비밀번호</param>
+        /// <returns></returns>
+        public bool ChangePassword(string id, string pw)
+        {
+            bool changeSuccess = false;
+
+            try
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                    conn.Open();
+
+                // 패스워드 갱신
+                sql = $"update sys.userdata set userPassword='{PasswordEncryption.SHA256Hash(pw)}' where userId='{id}'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("비밀번호 변경 완료", "알림", MessageBoxButton.OK);
+                    changeSuccess = true;
+                }
+                else
+                {
+                    MessageBox.Show("DB 업데이트 오류", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                    changeSuccess = false;
+                }
+            }
+            catch (Exception e) { Debug.WriteLine(e.Message); }
+            finally { conn.Close(); }
+
+            return changeSuccess;
         }
     }
 }
