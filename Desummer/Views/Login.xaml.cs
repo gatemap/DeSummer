@@ -46,5 +46,29 @@ namespace Desummer.Views
             ResetPassword resetPassword = new ResetPassword();
             resetPassword.Show();
         }
+
+        private void Button_Click_Face(object sender, RoutedEventArgs e)
+        {
+            FaceRecognitions fp = new FaceRecognitions();
+            fp.StartFaceRecognition();
+
+            string fl = FaceRecognitions.face_login;
+
+            if (fl == "Unknown")
+            {
+                MessageBox.Show("미등록 얼굴입니다.", "로그인 실패", MessageBoxButton.OK, MessageBoxImage.None);
+            }
+            else if (fl == "")
+            {
+                MessageBox.Show("시간 초과 얼굴 인식에 실패했습니다.", "로그인 실패", MessageBoxButton.OK, MessageBoxImage.None);
+            }
+            else
+            {
+                Container nextWindow = new Container();
+                nextWindow.Show();
+
+                this.Close();
+            }
+        }
     }
 }

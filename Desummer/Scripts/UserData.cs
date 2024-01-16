@@ -6,6 +6,8 @@
         public string userId { get; private set; }
         public bool admin { get; private set; } = false;
 
+        public bool isFaceLogin = false;
+
         public UserData(string userName, string userId, bool admin)
         {
             this.userName = userName;
